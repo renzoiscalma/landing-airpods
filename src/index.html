@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Testing Scroll animation</title>
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="../dist/tailwind.css" />
+  </head>
+  <body class="m-0">
+    <!-- <nav></nav> -->
+    <!-- <canvas></canvas> -->
+    <div class="bg-black" id="hero">
+      <div class="h-[250vh]">
+        <div class="sticky top-0 h-[100vh]" id="sticky-hero">
+          <div
+            class="relative flex h-full flex-col items-center justify-center text-slate-50"
+          >
+            <h1 class="text-9 text-green-500" id="all-new">All-new</h1>
+            <p
+              class="text-10xl font-bold"
+              id="hero-maintext"
+              style="transform: matrix(1, 0, 0, 1, 0, 0); opacity: 1"
+            >
+              Airpods Pro
+            </p>
+            <div class="absolute top-[90%] flex gap-x-10" id="watch-links">
+              <p class="cursor-pointer underline">Watch Quiet the Noise</p>
+              <p class="cursor-pointer underline">Watch the Film</p>
+            </div>
+          </div>
+          <div
+            class="absolute top-0 hidden h-full w-full flex-col items-center justify-center text-slate-50"
+          >
+            <h1 class="text-9xl">Rebuilt from the sound up.</h1>
+          </div>
+          <div
+            class="pointer-events-none absolute top-0 flex h-full w-full items-start justify-center"
+          >
+            <div
+              class="absolute flex w-full translate-y-[-15%] justify-center pb-[34%]"
+            >
+              <canvas
+                class="w-full will-change-transform"
+                id="airpods-hero-canvas"
+              ></canvas>
+            </div>
+            <!-- <picture></picture> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="border-t border-gray-400 bg-black" id="section-1">
+      <div class="h-[200vh]">
+        <div class="sticky top-1/2" id="sticky-section-1">
+          <div class="flex items-center justify-center text-slate-50">
+            <div id="section-1-content">0</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="border-t border-gray-400 bg-black" id="section-2">
+      <div class="h-[200vh]">
+        <div class="sticky top-1/2" id="sticky-section-2">
+          <div class="flex items-center justify-center text-slate-50">
+            <div id="section-2-content">0</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bg-black" id="section-3">
+      <div class="h-[200vh]">
+        <div class="sticky top-1/2" id="sticky-section-3">
+          <div class="flex items-center justify-center text-slate-50">
+            <div id="section-3-content">0</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="index.js"></script>
+</html>
