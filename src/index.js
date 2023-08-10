@@ -50,12 +50,13 @@ document.addEventListener("scroll", function () {
   const currSection = getCurrentSection();
   const currSectionOffSet = offset(sections[currSection]);
   const scrollTop = html.scrollTop;
-  const maxScrollTop = currSectionOffSet.bottom - 1500;
+  const maxScrollTop = currSectionOffSet.bottom;
   //scroll fraction per section
   const scrollFraction = Math.max(
     0.0001,
     getPercentage(scrollTop, currSectionOffSet.top, maxScrollTop),
   );
+  console.log(scrollFraction, currSection);
 
   modifySections(scrollFraction, currSection);
 });
@@ -91,16 +92,39 @@ function modifyHeroByFraction(scrollFraction) {
   document.getElementById("all-new").style.opacity = opacity;
   document.getElementById("watch-links").style.opacity =
     opacity < 0.5 ? opacity : 1;
+
+  // modify hero payoff section
+  // todo gradual opacity
+  if (scrollFraction > 0.4 && scrollFraction < 0.6) {
+    document.getElementById("hero-payoff").style.opacity = 1;
+    document.getElementById("hero-payoff").style.transform = `matrix(${
+      size - 0.2
+    }, 0, 0, ${size - 0.2}, 0, 0)`;
+  } else {
+    document.getElementById("hero-payoff").style.opacity = 0;
+  }
+}
+// hero animation finished when scrollFraction on hero section is 80%
+function modifyAirpodsAnimation(scrollFraction) {
+  let percent = getPercentage(Math.min(0.8, scrollFraction), 0, 0.5);
+
+  const frameIndex = Math.min(
+    heroMaxFrame - 1,
+    Math.floor(percent * heroMaxFrame),
+  );
+  window.requestAnimationFrame(() => updateImage(frameIndex + 1));
 }
 
 function modifySections(scrollFraction, currSection) {
   if (currSection == 0) {
-    const frameIndex = Math.min(
-      heroMaxFrame - 1,
-      Math.floor(scrollFraction * heroMaxFrame),
-    );
     modifyHeroByFraction(scrollFraction);
-    window.requestAnimationFrame(() => updateImage(frameIndex + 1));
+    modifyAirpodsAnimation(scrollFraction);
+    document.getElementById("video-dancer-container").style.opacity =
+      scrollFraction >= 0.6 && scrollFraction < 0.99 ? 1 : 0;
+  }
+
+  if (currSection == 1) {
+    document.getElementById("video-dancer-container").style.opacity = 0;
   }
 }
 

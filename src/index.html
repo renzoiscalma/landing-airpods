@@ -10,13 +10,13 @@
   <body class="m-0">
     <!-- <nav></nav> -->
     <!-- <canvas></canvas> -->
-    <div class="bg-black" id="hero">
-      <div class="h-[250vh]">
+    <div class="relative bg-black" id="hero">
+      <div class="relative z-10 h-[250vh]">
         <div class="sticky top-0 h-[100vh]" id="sticky-hero">
           <div
             class="relative flex h-full flex-col items-center justify-center text-slate-50"
           >
-            <h1 class="text-9 text-green-500" id="all-new">All-new</h1>
+            <h1 class="text-3xl text-green-500" id="all-new">All-new</h1>
             <p
               class="text-10xl font-bold"
               id="hero-maintext"
@@ -30,9 +30,14 @@
             </div>
           </div>
           <div
-            class="absolute top-0 hidden h-full w-full flex-col items-center justify-center text-slate-50"
+            class="pointer-events-none absolute top-0 z-10 flex h-full w-full flex-col items-center justify-center text-slate-50"
           >
-            <h1 class="text-9xl">Rebuilt from the sound up.</h1>
+            <h1
+              class="text-9xl opacity-0 transition-opacity ease-in-out"
+              id="hero-payoff"
+            >
+              Rebuilt from the sound up.
+            </h1>
           </div>
           <div
             class="pointer-events-none absolute top-0 flex h-full w-full items-start justify-center"
@@ -50,16 +55,44 @@
         </div>
       </div>
     </div>
-    <div class="border-t border-gray-400 bg-black" id="section-1">
-      <div class="h-[200vh]">
-        <div class="sticky top-1/2" id="sticky-section-1">
-          <div class="flex items-center justify-center text-slate-50">
+    <div class="bg-black" id="section-1">
+      <div class="relative h-[80vh]">
+        <div
+          class="absolute bottom-0 left-0 right-0 top-0"
+          id="sticky-section-1"
+        >
+          <!-- <div class="flex items-center justify-center text-slate-50">
             <div id="section-1-content">0</div>
+          </div> -->
+          <div
+            class="sticky top-0 z-0 -mt-[100vh] h-full w-full opacity-0 transition-opacity ease-in-out"
+            id="video-dancer-container"
+          >
+            <video
+              class="h-[100vh] w-full object-cover"
+              muted
+              loop
+              playsinline
+              preload
+              autoplay
+              aria-label="Dancers moving expressively."
+              src="https://www.apple.com/105/media/us/airpods-pro/2022/d2deeb8e-83eb-48ea-9721-f567cf0fffa8/anim/spatial-audio/large.mp4"
+            ></video>
           </div>
+        </div>
+        <div
+          class="relative z-10 mx-auto flex w-[880px] items-center justify-center"
+        >
+          <p class="text-5xl text-slate-50">
+            Up to 2x more Active Noise Cancellation than the previous
+            generation. Spatial Audio takes immersion to a remarkably personal
+            level. Touch control lets you adjust volume with a swipe. And a leap
+            in power delivers 6 hours of battery life from a single charge.
+          </p>
         </div>
       </div>
     </div>
-    <div class="border-t border-gray-400 bg-black" id="section-2">
+    <div class="bg-black" id="section-2">
       <div class="h-[200vh]">
         <div class="sticky top-1/2" id="sticky-section-2">
           <div class="flex items-center justify-center text-slate-50">
