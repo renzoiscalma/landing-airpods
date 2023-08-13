@@ -6,6 +6,9 @@ module.exports = {
       fontSize: {
         "10xl": "15rem",
       },
+      colors: {
+        "code-green": "#00ff41",
+      },
     },
   },
   plugins: ["prettier-plugin-tailwindcss"],

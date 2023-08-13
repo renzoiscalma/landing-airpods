@@ -14,7 +14,7 @@
       <div class="relative z-10 h-[250vh]">
         <div class="sticky top-0 h-[100vh]" id="sticky-hero">
           <div class="relative flex h-full flex-col items-center justify-center text-slate-50">
-            <h1 class="text-3xl text-green-500" id="all-new">All-new</h1>
+            <h1 class="text-3xl text-code-green" id="all-new">All-new</h1>
             <p
               class="text-10xl font-bold"
               id="hero-maintext"
@@ -175,7 +175,7 @@
           </div>
         </div>
         <div
-          class="grid max-w-full grid-cols-2 grid-rows-2 gap-[1px] border-b border-t border-zinc-700 bg-zinc-700"
+          class="grid grid-cols-2 grid-rows-2 gap-[1px] border-b border-t border-zinc-700 bg-zinc-700"
         >
           <div class="col-span-1 flex items-center justify-center bg-black p-20">
             <div class="">
@@ -222,28 +222,28 @@
                 src="https://www.apple.com/v/airpods-pro/g/images/overview/airpod_tips_xs__fahuy3bkbrqu_large.jpg"
                 alt=""
               />
-              <p class="absolute top-[60%] pl-2 text-xl font-bold text-green-500">XS</p>
+              <p class="absolute top-[60%] pl-2 text-xl font-bold text-code-green">XS</p>
             </div>
             <div class="relative pt-[47px]">
               <img
                 src="https://www.apple.com/v/airpods-pro/g/images/overview/airpod_tips_s__dlfl8rqwrdsi_large.jpg"
                 alt=""
               />
-              <p class="absolute top-[60%] pl-2 text-xl font-bold text-green-500">S</p>
+              <p class="absolute top-[60%] pl-2 text-xl font-bold text-code-green">S</p>
             </div>
             <div class="relative pt-[37px]">
               <img
                 src="https://www.apple.com/v/airpods-pro/g/images/overview/airpod_tips_m__enss3p4jcnu6_large.jpg"
                 alt=""
               />
-              <p class="absolute top-[60%] pl-2 text-xl font-bold text-green-500">M</p>
+              <p class="absolute top-[60%] pl-2 text-xl font-bold text-code-green">M</p>
             </div>
             <div class="relative pt-[17px]">
               <img
                 src="https://www.apple.com/v/airpods-pro/g/images/overview/airpod_tips_l__cpjg3qofehiu_large.jpg"
                 alt=""
               />
-              <p class="absolute top-[60%] pl-2 text-xl font-bold text-green-500">L</p>
+              <p class="absolute top-[60%] pl-2 text-xl font-bold text-code-green">L</p>
             </div>
             <div>
               <img
@@ -254,8 +254,57 @@
             </div>
           </div>
         </div>
+        <div class="grid grid-cols-2 gap-[1px] border-b border-t border-zinc-700 bg-zinc-700">
+          <div class="relative flex min-h-[640px] items-center justify-center bg-black p-20">
+            <p>
+              Adaptive Transparency harnesses the power of H2 to minimize the intensity of loud
+              noises like sirens or power tools — so you can comfortably hear the world around you.
+            </p>
+          </div>
+          <div class="relative flex min-h-[640px] items-center justify-center bg-black p-20">
+            <p class="absolute z-10 text-center">
+              Reduces noise at <br />
+              48,000 <br />
+              times per second.
+            </p>
+            <img src="./assets/sound-wave.jpg" class="absolute z-0 overflow-visible" />
+          </div>
+        </div>
+        <div class="border-b border-zinc-700 bg-zinc-700">
+          <div class="bg-black p-20 pt-0">
+            <div class="flex flex-row items-center justify-center">
+              <span>A higher level</span>
+              <span class="relative">
+                <img
+                  src="https://www.apple.com/v/airpods-pro/g/images/overview/touch_control_airpod__e9hauo6fitim_large.jpg"
+                  alt="The scooped area on the stem that activates Touch control."
+                />
+                <div
+                  class="-skew-y[11.5deg] absolute left-[180px] top-[80px] h-[280px] w-[110px] skew-x-[23.5deg]"
+                  id="touch-control-container"
+                >
+                  <div
+                    class="h-[110px] w-[110px] rounded-full bg-code-green opacity-0 transition-transform ease-out"
+                    id="touch-control-circle"
+                  ></div>
+                </div>
+              </span>
+              <span>of control</span>
+            </div>
+            <div class="mt-10 w-1/3">
+              <p>
+                Touch control lets you easily manage playback functions from the stem. Swipe up or
+                down to adjust volume, press to play and pause music or answer and end calls, or
+                hold to switch between Active Noise Cancellation and Adaptive Transparency.
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
+    <div class="bg-black" id="section-4"></div>
+    <div class="bg-black" id="section-5"></div>
+    <div class="bg-black" id="section-6"></div>
   </body>
   <script src="index.js"></script>
 </html>

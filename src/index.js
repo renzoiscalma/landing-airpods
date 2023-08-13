@@ -1,12 +1,13 @@
 let heroMaxFrame = 64;
 const html = document.documentElement;
 const hero = document.getElementById("hero");
-
 const section1 = document.getElementById("section-1");
 const section2 = document.getElementById("section-2");
 const section3 = document.getElementById("section-3");
+const section4 = document.getElementById("section-4");
+const section5 = document.getElementById("section-5");
 
-const sections = [hero, section1, section2, section3];
+const sections = [hero, section1, section2, section3, section4, section5];
 
 const airpodsCanvas = document.getElementById("airpods-hero-canvas");
 const canvasImg = new Image();
@@ -113,6 +114,8 @@ function modifyGuts(scrollFraction) {
     guts2.style.opacity = 0;
     imgPod.style.opacity = 0;
     podParticles.classList.remove("scale-100");
+    podParticles.classList.add("scale-125");
+
     let percent = getPercentage(scrollFraction, 0, 0.25);
     let text1 = document.getElementById("guts-1-1");
     let text2 = document.getElementById("guts-1-2");
@@ -150,6 +153,7 @@ function modifyGuts(scrollFraction) {
     guts2.style.opacity = 1;
     imgPod.style.opacity = 0;
     podParticles.classList.remove("scale-100");
+    podParticles.classList.add("scale-125");
     let text3 = document.getElementById("guts-2-1");
     let percent = getPercentage(scrollFraction - 0.25, 0, 0.25);
     text3.style.transform = `translateY(${gutsTextBottom - gutsTextBottom * percent * 2}px)`;
@@ -165,6 +169,7 @@ function modifyGuts(scrollFraction) {
     guts2.style.opacity = 0;
     podParticles.style.opacity = imgPod.style.opacity = 1;
     podParticles.classList.add("scale-100");
+    podParticles.classList.remove("scale-125");
     let percent = getPercentage(scrollFraction - 0.5, 0, 0.25);
     let podOpacity = getPercentage(percent, 0.4, 0.6);
     imgPod.style.opacity = podParticles.style.opacity = 1 - podOpacity;
@@ -192,5 +197,42 @@ function modifySections(scrollFraction, currSection) {
 function getPercentage(val, min, max) {
   return (val - min) / (max - min);
 }
+
+setInterval(() => {
+  let circle = document.getElementById("touch-control-circle");
+  let MAX_ITERATIONS = 20;
+  let PAUSE_ITERATIONS = 10;
+  let MAX_DY = 200;
+  let iterations = 0;
+  let currPauseIterations = 0;
+
+  let swipe = setInterval(() => {
+    iterations++;
+
+    if (iterations == MAX_ITERATIONS / 2 + 1 && currPauseIterations < PAUSE_ITERATIONS) {
+      currPauseIterations++;
+      iterations--; // negate iterations
+      return;
+    }
+
+    if (iterations <= MAX_ITERATIONS) {
+      // swipe down\
+      let percentDone = getPercentage(iterations, 0, MAX_ITERATIONS / 2);
+      circle.style.transform = `matrix(1, 0, 0, 1, 0, ${percentDone * MAX_DY})`;
+      circle.style.opacity = 1 - percentDone;
+    }
+
+    if (iterations > MAX_ITERATIONS / 2) {
+      // swipe up
+      let percentDone = getPercentage(iterations, MAX_ITERATIONS / 2, MAX_ITERATIONS);
+      circle.style.transform = `matrix(1, 0, 0, 1, 0, ${MAX_DY - percentDone * MAX_DY * 1.2})`;
+      circle.style.opacity = 1 - percentDone;
+    }
+
+    if (iterations >= MAX_ITERATIONS) {
+      clearInterval(swipe);
+    }
+  }, 50);
+}, 5000);
 
 // https://codepen.io/braydoncoyer/pen/rNxwgjq
