@@ -248,31 +248,40 @@ function modifyCaseVideo(scrollFraction) {
 function modifyPhoneVideo(scrollFraction) {
   let phoneVideo = document.getElementById("phone-video");
   let phoneVideoContainer = document.getElementById("phone-video-container");
+  let caseBlinker = document.getElementById("case-blinker");
   let phoneVideoContainerOffset = offset(phoneVideoContainer);
   if (window.scrollY > phoneVideoContainerOffset.top - 300) {
-    let phoneVideoScrolled = getPercentage(
-      window.scrollY,
-      phoneVideoContainerOffset.top - 300,
-      phoneVideoContainerOffset.top,
-    );
-
-    if (phoneVideoScrolled <= 0.1) {
-      phoneVideo.pause();
-      phoneVideo.currentTime = 0;
-      phoneVideoContainer.style.opacity = 0;
-    }
-
-    if (phoneVideoScrolled >= 0.8) {
-      if (phoneVideo.currentTime == 0) phoneVideo.play();
-      phoneVideoContainer.style.opacity = phoneVideoScrolled;
-    } else {
-      phoneVideoContainer.style.opacity = phoneVideoScrolled;
-    }
-
-    // if (phoneVideoScrolled < 0.8) {
-    //   phoneVideo.style.opacity = 1 - phoneVideoScrolled;
-    // }
+    setupPhoneVideoStartup();
+  } else {
   }
+}
+
+function setupPhoneVideoStartup() {
+  let phoneVideo = document.getElementById("phone-video");
+  let phoneVideoContainer = document.getElementById("phone-video-container");
+  let caseBlinker = document.getElementById("case-blinker");
+  let phoneText1 = document.getElementById("phone-text-1");
+  let phoneVideoContainerOffset = offset(phoneVideoContainer);
+  let phoneVideoScrolled = getPercentage(
+    window.scrollY,
+    phoneVideoContainerOffset.top - 300,
+    phoneVideoContainerOffset.top,
+  );
+
+  if (phoneVideoScrolled <= 0.1) {
+    phoneVideo.pause();
+    phoneVideo.currentTime = 0;
+    phoneVideoContainer.style.opacity = 0;
+    caseBlinker.classList.remove("animate-airpods-connecting");
+  }
+
+  if (phoneVideoScrolled >= 0.8 && phoneVideo.currentTime == 0) {
+    phoneVideo.play();
+    caseBlinker.classList.add("animate-airpods-connecting");
+  }
+
+  phoneVideoContainer.style.opacity = phoneText1.style.opacity = phoneVideoScrolled;
+  phoneText1.style.transform = `matrix(1, 0, 0, 1, 0, ${phoneVideoScrolled * -135})`;
 }
 
 setInterval(() => {
