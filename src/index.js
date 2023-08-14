@@ -42,15 +42,12 @@ function updateImage(frame) {
 
 document.addEventListener("scroll", function () {
   const currSection = getCurrentSection();
+  if (currSection == -1) return;
   const currSectionOffSet = offset(sections[currSection]);
   const scrollTop = html.scrollTop;
   const maxScrollTop = currSectionOffSet.bottom;
-  //scroll fraction per section
-  const scrollFraction = Math.max(
-    0.0001,
-    getPercentage(scrollTop, currSectionOffSet.top, maxScrollTop),
-  );
-
+  const percentScrolledOfSection = getPercentage(scrollTop, currSectionOffSet.top, maxScrollTop);
+  const scrollFraction = Math.max(0.0001, percentScrolledOfSection);
   modifySections(scrollFraction, currSection);
 });
 
@@ -192,10 +189,90 @@ function modifySections(scrollFraction, currSection) {
   if (currSection == 2) {
     modifyGuts(scrollFraction);
   }
+
+  if (currSection == 4) {
+    let caseVideoContainer = document.getElementById("case-video");
+    let caseVideoOffset = offset(caseVideoContainer);
+    if (window.scrollY > caseVideoOffset.top) {
+      let caseVideoScrolled = getPercentage(
+        window.scrollY,
+        caseVideoOffset.top,
+        caseVideoOffset.bottom - window.innerHeight - 200,
+      );
+      modifyCaseVideo(caseVideoScrolled);
+    }
+  }
+
+  if (currSection == 5) {
+    modifyPhoneVideo(scrollFraction);
+  }
 }
 
 function getPercentage(val, min, max) {
   return (val - min) / (max - min);
+}
+
+function modifyCaseVideo(scrollFraction) {
+  let video = document.getElementById("case-battery-video");
+  if (!video) return;
+  let VIDEO_DURATION = 5.367;
+  video.currentTime = Math.min(VIDEO_DURATION, scrollFraction * VIDEO_DURATION);
+  let { currentTime } = video;
+  console.log(currentTime);
+  let textShowBreakpoints = [1.5, 2.8, 4.1, 5.3];
+  let textHideBreakpoints = [1.5, 3.8];
+  let text1 = document.getElementById("case-feat-1");
+  let text2 = document.getElementById("case-feat-2");
+  let text3 = document.getElementById("case-feat-3");
+  let text4 = document.getElementById("case-feat-4");
+  let text1Opacity = getPercentage(currentTime, 0, 1.5);
+  text1.style.opacity = 1 - text1Opacity;
+
+  text2.style.opacity =
+    currentTime >= 2
+      ? currentTime <= 2.8
+        ? getPercentage(currentTime, 2, 2.8)
+        : 1 - getPercentage(currentTime, 3.1, 3.8)
+      : 0;
+
+  text3.style.opacity =
+    currentTime >= 3.7
+      ? currentTime <= 4.0
+        ? getPercentage(currentTime, 3.7, 4.0)
+        : 1 - getPercentage(currentTime, 4.3, 5.2)
+      : 0;
+
+  text4.style.opacity = currentTime >= 4.9 ? getPercentage(currentTime, 4.9, 5.367) : 0;
+}
+
+function modifyPhoneVideo(scrollFraction) {
+  let phoneVideo = document.getElementById("phone-video");
+  let phoneVideoContainer = document.getElementById("phone-video-container");
+  let phoneVideoContainerOffset = offset(phoneVideoContainer);
+  if (window.scrollY > phoneVideoContainerOffset.top - 300) {
+    let phoneVideoScrolled = getPercentage(
+      window.scrollY,
+      phoneVideoContainerOffset.top - 300,
+      phoneVideoContainerOffset.top,
+    );
+
+    if (phoneVideoScrolled <= 0.1) {
+      phoneVideo.pause();
+      phoneVideo.currentTime = 0;
+      phoneVideoContainer.style.opacity = 0;
+    }
+
+    if (phoneVideoScrolled >= 0.8) {
+      if (phoneVideo.currentTime == 0) phoneVideo.play();
+      phoneVideoContainer.style.opacity = phoneVideoScrolled;
+    } else {
+      phoneVideoContainer.style.opacity = phoneVideoScrolled;
+    }
+
+    // if (phoneVideoScrolled < 0.8) {
+    //   phoneVideo.style.opacity = 1 - phoneVideoScrolled;
+    // }
+  }
 }
 
 setInterval(() => {
