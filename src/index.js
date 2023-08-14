@@ -1,4 +1,6 @@
 let heroMaxFrame = 64;
+let lastScrollTop = 0;
+let scrollUp = false;
 const html = document.documentElement;
 const hero = document.getElementById("hero");
 const section1 = document.getElementById("section-1");
@@ -40,6 +42,10 @@ function updateImage(frame) {
   context.drawImage(images[frame], 0, 0);
 }
 
+function isScrollUp() {
+  return scrollUp;
+}
+
 document.addEventListener("scroll", function () {
   const currSection = getCurrentSection();
   if (currSection == -1) return;
@@ -48,6 +54,8 @@ document.addEventListener("scroll", function () {
   const maxScrollTop = currSectionOffSet.bottom;
   const percentScrolledOfSection = getPercentage(scrollTop, currSectionOffSet.top, maxScrollTop);
   const scrollFraction = Math.max(0.0001, percentScrolledOfSection);
+  scrollUp = scrollTop < lastScrollTop;
+  lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
   modifySections(scrollFraction, currSection);
 });
 
@@ -250,9 +258,19 @@ function modifyPhoneVideo(scrollFraction) {
   let phoneVideoContainer = document.getElementById("phone-video-container");
   let caseBlinker = document.getElementById("case-blinker");
   let phoneVideoContainerOffset = offset(phoneVideoContainer);
-  if (window.scrollY > phoneVideoContainerOffset.top - 300) {
+  if (
+    window.scrollY > phoneVideoContainerOffset.top - 300 &&
+    window.scrollY < phoneVideoContainerOffset.top
+  ) {
     setupPhoneVideoStartup();
-  } else {
+  } else if (window.scrollY > phoneVideoContainerOffset.top) {
+    phoneVideoContainer.style.opacity = 1;
+    let videoContainerPercentScrolled = getPercentage(
+      window.scrollY,
+      phoneVideoContainerOffset.top,
+      phoneVideoContainerOffset.bottom - window.innerHeight,
+    );
+    phoneVideoScrolling(videoContainerPercentScrolled);
   }
 }
 
@@ -262,6 +280,7 @@ function setupPhoneVideoStartup() {
   let caseBlinker = document.getElementById("case-blinker");
   let phoneText1 = document.getElementById("phone-text-1");
   let phoneVideoContainerOffset = offset(phoneVideoContainer);
+
   let phoneVideoScrolled = getPercentage(
     window.scrollY,
     phoneVideoContainerOffset.top - 300,
@@ -282,6 +301,59 @@ function setupPhoneVideoStartup() {
 
   phoneVideoContainer.style.opacity = phoneText1.style.opacity = phoneVideoScrolled;
   phoneText1.style.transform = `matrix(1, 0, 0, 1, 0, ${phoneVideoScrolled * -135})`;
+}
+
+document.getElementById("phone-video").addEventListener("ended", function () {
+  document.getElementById("replay-container").style.opacity = 1;
+});
+
+function phoneVideoScrolling(scrollFraction) {
+  let caseBlinker = document.getElementById("case-blinker");
+  let phoneVideo = document.getElementById("phone-video");
+  let phoneMusic = document.getElementById("phone-music");
+  let phoneText1 = document.getElementById("phone-text-1");
+  let phoneText2 = document.getElementById("phone-text-2");
+
+  // modify videos and airpod case blinking animation
+  if (isScrollUp() && scrollFraction >= 0.8) {
+    phoneVideo.play();
+    document.getElementById("replay-container").style.opacity = 0;
+  } else if (scrollFraction >= 0.9) {
+    caseBlinker.classList.remove("animate-airpods-connecting");
+    phoneMusic.style.opacity = 1;
+  } else {
+    caseBlinker.classList.add("animate-airpods-connecting");
+    phoneMusic.style.opacity = 0;
+  }
+
+  // modify texts
+  if (scrollFraction > 0.6) {
+    phoneText1.style.opacity = 0;
+  } else if (scrollFraction > 0.15) {
+    phoneText1.style.opacity = 1 - computeOpacity(scrollFraction, 0.15, 0.6);
+    phoneText1.style.transform = computeTransformYMatrix(scrollFraction - 0.15, -135, -180, true);
+  } else {
+    phoneText1.style.opacity = 1;
+  }
+
+  phoneText2.style.opacity = scrollFraction > 0.95 ? 1 : computeOpacity(scrollFraction, 0.6, 1);
+  phoneText2.style.transform = computeTransformYMatrix(scrollFraction, 0, -135, true);
+}
+
+function computeOpacity(val, min, max) {
+  return val > min
+    ? val < max
+      ? getPercentage(val, min, max)
+      : 1 - getPercentage(val, min, max)
+    : 0;
+}
+
+function computeTransformYMatrix(scrollFraction, base, max, limit) {
+  if (limit) {
+    if (scrollFraction >= 1) return `matrix(1, 0, 0, 1, 0, ${max})`;
+    if (scrollFraction <= base) return `matrix(1, 0, 0, 1, 0, ${base})`;
+  }
+  return `matrix(1, 0, 0, 1, 0, ${base + scrollFraction * max})`;
 }
 
 setInterval(() => {
@@ -320,5 +392,11 @@ setInterval(() => {
     }
   }, 50);
 }, 5000);
+
+function replayConnectingVideo() {
+  let phoneVideo = document.getElementById("phone-video");
+  phoneVideo.currentTime = 0;
+  phoneVideo.play();
+}
 
 // https://codepen.io/braydoncoyer/pen/rNxwgjq

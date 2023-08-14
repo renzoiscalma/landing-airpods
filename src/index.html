@@ -390,7 +390,7 @@
     </div>
     <div class="bg-black" id="section-5">
       <div class="text-slate-50">
-        <div class="mx-auto mb-24 w-[980px] pt-20">
+        <div class="mx-auto mb-24 w-[980px] pt-20" id="magical-experience-container">
           <div class="text-4xl">Magical experience</div>
           <div class="mb-10 text-9xl font-bold">Simplicity on a grand scale.</div>
           <div class="text-4xl">
@@ -399,17 +399,14 @@
             tasks with unprecedented ease.
           </div>
         </div>
-        <div class="relative h-[200vh]" id="case-video">
-          <div
-            class="sticky top-0 flex h-[100vh] flex-col items-center justify-center p-20 opacity-0"
-            id="phone-video-container"
-          >
+        <div class="relative h-[170vh] opacity-0" id="phone-video-container">
+          <div class="sticky top-0 flex h-[100vh] flex-col items-center justify-center p-20">
             <div class="flex h-[666px] w-[328px] items-center justify-center">
               <img
                 src="https://www.apple.com/v/airpods-pro/g/images/overview/magical_iphone_hardware__ff15ryl53xay_large.jpg"
                 alt=""
               />
-              <div class="after:z-15 absolute right-[calc(50%+65px)] top-[calc(50%+118px)] z-10">
+              <div class="after:z-15 absolute right-[calc(50%+65px)] top-[calc(50%+118px)] z-20">
                 <img
                   src="https://www.apple.com/v/airpods-pro/g/images/overview/magical_case__epo6duhktocy_large.png"
                   alt=""
@@ -419,6 +416,12 @@
                   id="case-blinker"
                 ></span>
               </div>
+              <img
+                class="absolute z-10 opacity-0 transition-opacity duration-300 mask-img-[url('../src/assets/phone-img-mask.png')]"
+                src="https://www.apple.com/ca/airpods-pro/images/overview/magical_screen_audio__dzbihn6hl7au_large.jpg"
+                id="phone-music"
+                alt=""
+              />
               <video
                 id="phone-video"
                 playsinline
@@ -436,16 +439,24 @@
                 Easy, magical setup. Place AirPods Pro near your iPhone and tap Connect to
                 seamlessly pair with every device in your iCloud account.8 And if your case is
                 custom engraved, the same engraving appears on your device’s screen — for an even
-                more personal experience.
+                more personal experience. <br />
+                <span
+                  class="flex cursor-pointer items-center gap-1 pt-3 font-bold opacity-0 transition-opacity duration-300 hover:underline"
+                  onclick="replayConnectingVideo()"
+                  id="replay-container"
+                >
+                  <span>Replay</span>
+                  <img src="./assets/replay.png" alt="" srcset="" class="inline-block h-3"
+                /></span>
               </p>
 
               <p
-                class="absolute left-[calc(50%+190px)] top-[calc(50%+60px)] max-w-[390px] opacity-0"
+                class="pointer-events-none absolute left-[calc(50%+190px)] top-[calc(50%+60px)] max-w-[390px] opacity-0"
+                id="phone-text-2"
               >
-                Easy, magical setup. Place AirPods Pro near your iPhone and tap Connect to
-                seamlessly pair with every device in your iCloud account.8 And if your case is
-                custom engraved, the same engraving appears on your device’s screen — for an even
-                more personal experience.
+                Audio Sharing Easily share a song or show between any two sets of AirPods. Simply
+                bring AirPods near the iPhone, iPad or Apple TV you’re listening to and connect
+                instantly.9
               </p>
             </div>
           </div>
