@@ -198,6 +198,18 @@ function modifySections(scrollFraction, currSection) {
     modifyGuts(scrollFraction);
   }
 
+  if (currSection == 3) {
+    const eartipContainer = document.getElementById("ear-tips-container");
+    let containerOffset = offset(eartipContainer);
+    if (
+      window.scrollY + window.innerHeight >
+        containerOffset.bottom - eartipContainer.offsetHeight / 2 &&
+      window.scrollY + window.innerHeight < containerOffset.bottom
+    ) {
+      modifyEarTips(scrollFraction);
+    }
+  }
+
   if (currSection == 4) {
     let caseVideoContainer = document.getElementById("case-video");
     let caseVideoOffset = offset(caseVideoContainer);
@@ -218,6 +230,37 @@ function modifySections(scrollFraction, currSection) {
 
 function getPercentage(val, min, max) {
   return (val - min) / (max - min);
+}
+
+function modifyEarTips(scrollFraction) {
+  const eartipContainer = document.getElementById("ear-tips-container");
+  const tipsL = document.getElementById("tips-l");
+  const tipsM = document.getElementById("tips-m");
+  const tipsS = document.getElementById("tips-s");
+  const tipsXS = document.getElementById("tips-xs");
+
+  const tipsRef = [tipsL, tipsM, tipsS, tipsXS];
+  const minScrollFraction = [0, 0.15, 0.4, 0.65];
+  const maxScrollFraction = [0.25, 0.5, 0.75, 0.9];
+
+  let containerOffset = offset(eartipContainer);
+  let localScrollFraction = getPercentage(
+    window.scrollY + window.innerHeight,
+    containerOffset.bottom - eartipContainer.offsetHeight / 2,
+    containerOffset.bottom,
+  );
+
+  for (let i = 0; i < tipsRef.length; i++) {
+    console.log(localScrollFraction, minScrollFraction[i], maxScrollFraction[i]);
+    if (localScrollFraction > minScrollFraction[i] && localScrollFraction < maxScrollFraction[i]) {
+      tipsRef[i].style.transform = computeTransformXMatrix(localScrollFraction, 25, -50, false);
+      tipsRef[i].style.opacity = computeOpacity(
+        localScrollFraction,
+        minScrollFraction[i],
+        maxScrollFraction[i],
+      );
+    }
+  }
 }
 
 function modifyCaseVideo(scrollFraction) {
@@ -354,6 +397,14 @@ function computeTransformYMatrix(scrollFraction, base, max, limit) {
     if (scrollFraction <= base) return `matrix(1, 0, 0, 1, 0, ${base})`;
   }
   return `matrix(1, 0, 0, 1, 0, ${base + scrollFraction * max})`;
+}
+
+function computeTransformXMatrix(scrollFraction, base, max, limit) {
+  if (limit) {
+    if (scrollFraction >= 1) return `matrix(1, 0, 0, 1, ${max}, 0)`;
+    if (scrollFraction <= base) return `matrix(1, 0, 0, 1, ${base}, 0)`;
+  }
+  return `matrix(1, 0, 0, 1, ${base + scrollFraction * max}, 0)`;
 }
 
 setInterval(() => {
