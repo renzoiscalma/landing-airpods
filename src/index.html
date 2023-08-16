@@ -53,17 +53,13 @@
             <div class="absolute flex w-full translate-y-[-15%] justify-center">
               <canvas class="w-full will-change-transform" id="airpods-hero-canvas"></canvas>
             </div>
-            <!-- <picture></picture> -->
           </div>
         </div>
       </div>
     </div>
     <div class="bg-black" id="section-1">
-      <div class="relative h-[80vh]">
+      <div class="relative h-[100vh]">
         <div class="absolute bottom-0 left-0 right-0 top-0" id="sticky-section-1">
-          <!-- <div class="flex items-center justify-center text-slate-50">
-            <div id="section-1-content">0</div>
-          </div> -->
           <div
             class="sticky top-0 z-0 -mt-[100vh] h-full w-full opacity-0 transition-opacity ease-in-out"
             id="video-dancer-container"
@@ -84,15 +80,24 @@
           <p
             class="text-5xl font-bold tracking-tight text-slate-50 sm:text-[27px] md:text-[44px] lg:text-[56px]"
           >
-            Up to 2x more Active Noise Cancellation than the previous generation. Spatial Audio
-            takes immersion to a remarkably personal level. Touch control lets you adjust volume
-            with a swipe. And a leap in power delivers 6 hours of battery life from a single charge.
+            <span id="sentence-1" class="opacity-100">
+              Up to 2x more Active Noise Cancellation than the previous generation.
+            </span>
+            <span id="sentence-2" class="opacity-[0.15]">
+              Spatial Audio takes immersion to a remarkably personal level.
+            </span>
+            <span id="sentence-3" class="opacity-[0.15]">
+              Touch control lets you adjust volume with a swipe.
+            </span>
+            <span id="sentence-4" class="opacity-[0.15]">
+              And a leap in power delivers 6 hours of battery life from a single charge.
+            </span>
           </p>
         </div>
       </div>
     </div>
     <div class="bg-black" id="section-2">
-      <div class="relative h-[300vh]">
+      <div class="relative h-[300vh]" id="guts-container">
         <div class="absolute bottom-0 left-0 right-0 top-0" id="sticky-section-2">
           <div
             class="sticky top-0 flex h-[100vh] items-center justify-center transition-opacity ease-in-out"
@@ -100,7 +105,7 @@
           >
             <div class="absolute ml-auto mr-auto grid w-[980px] grid-cols-12">
               <p
-                class="align-center col-start-1 col-end-4 font-bold text-zinc-400 sm:text-[15px] md:text-[17px] lg:text-[21px]"
+                class="align-center col-start-1 col-end-4 font-bold text-zinc-400 opacity-0 sm:text-[15px] md:text-[17px] lg:text-[21px]"
                 style="transform: translateY(200px)"
                 id="guts-1-1"
               >
@@ -113,7 +118,7 @@
             </div>
             <div class="absolute ml-auto mr-auto grid w-[980px] grid-cols-12">
               <p
-                class="align-center col-start-1 col-end-4 font-bold text-zinc-400 sm:text-[15px] md:text-[17px] lg:text-[21px]"
+                class="align-center col-start-1 col-end-4 font-bold text-zinc-400 opacity-0 sm:text-[15px] md:text-[17px] lg:text-[21px]"
                 style="transform: translateY(200px)"
                 id="guts-1-2"
               >
@@ -139,7 +144,7 @@
           >
             <div class="absolute ml-auto mr-auto grid w-[980px] grid-cols-12">
               <p
-                class="align-center col-start-9 col-end-12 font-bold text-zinc-400 sm:text-[15px] md:text-[17px] lg:text-[21px]"
+                class="align-center col-start-9 col-end-12 font-bold text-zinc-400 opacity-0 sm:text-[15px] md:text-[17px] lg:text-[21px]"
                 style="transform: translateY(200px)"
                 id="guts-2-1"
               >
@@ -421,6 +426,9 @@
           <div class="sticky top-0 flex h-[100vh] flex-col items-center justify-center p-20">
             <div class="relative flex items-center justify-center">
               <video
+                playsinline
+                preload
+                muted
                 id="case-battery-video"
                 aria-label="AirPods Pro floating out of an open MagSafe Charging Case."
                 src="./assets/airpods.mp4"
