@@ -6,38 +6,51 @@
     <title>Testing Scroll animation</title>
     <link rel="stylesheet" href="css/index.css" />
     <link rel="stylesheet" href="../dist/tailwind.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/mailtoharshit/San-Francisco-Font-/sanfrancisco.css"
+    />
   </head>
-  <body class="m-0 bg-black">
-    <!-- <nav></nav> -->
-    <!-- <canvas></canvas> -->
+  <body class="m-0 bg-black font-bold leading-[1.15] tracking-tighter">
     <div class="relative bg-black" id="hero">
       <div class="relative z-10 h-[250vh]">
         <div class="sticky top-0 h-[100vh]" id="sticky-hero">
           <div class="relative flex h-full flex-col items-center justify-center text-slate-50">
             <h1 class="text-3xl text-code-green" id="all-new">All-new</h1>
-            <p
-              class="text-10xl font-bold"
+            <h1
+              class="text-[14vw] font-bold -tracking-[0.02em]"
               id="hero-maintext"
               style="transform: matrix(1, 0, 0, 1, 0, 0); opacity: 1"
             >
-              Airpods Pro
-            </p>
+              AirPods Pro
+            </h1>
             <div class="absolute top-[90%] flex gap-x-10" id="watch-links">
-              <p class="cursor-pointer underline">Watch Quiet the Noise</p>
-              <p class="cursor-pointer underline">Watch the Film</p>
+              <p
+                class="cursor-pointer text-[22px] font-semibold -tracking-[0.007em] hover:underline"
+              >
+                Watch <span class="italic">Quiet the noise</span>
+              </p>
+              <p
+                class="cursor-pointer text-[22px] font-semibold -tracking-[0.007em] hover:underline"
+              >
+                Watch the film
+              </p>
             </div>
           </div>
           <div
             class="pointer-events-none absolute top-0 z-10 flex h-full w-full flex-col items-center justify-center text-slate-50"
           >
-            <h1 class="text-9xl opacity-0 transition-opacity ease-in-out" id="hero-payoff">
+            <h1
+              class="text-center text-[7vw] tracking-tight opacity-0 transition-opacity ease-in-out"
+              id="hero-payoff"
+            >
               Rebuilt from the sound up.
             </h1>
           </div>
           <div
-            class="pointer-events-none absolute top-0 flex h-full w-full items-start justify-center"
+            class="pointer-events-none absolute top-0 flex h-full w-full items-center justify-center"
           >
-            <div class="absolute flex w-full translate-y-[-15%] justify-center pb-[34%]">
+            <div class="absolute flex w-full translate-y-[-15%] justify-center">
               <canvas class="w-full will-change-transform" id="airpods-hero-canvas"></canvas>
             </div>
             <!-- <picture></picture> -->
@@ -68,7 +81,9 @@
           </div>
         </div>
         <div class="relative z-10 mx-auto flex w-[880px] items-center justify-center">
-          <p class="text-5xl text-slate-50">
+          <p
+            class="text-5xl font-bold tracking-tight text-slate-50 sm:text-[27px] md:text-[44px] lg:text-[56px]"
+          >
             Up to 2x more Active Noise Cancellation than the previous generation. Spatial Audio
             takes immersion to a remarkably personal level. Touch control lets you adjust volume
             with a swipe. And a leap in power delivers 6 hours of battery life from a single charge.
@@ -85,24 +100,27 @@
           >
             <div class="absolute ml-auto mr-auto grid w-[980px] grid-cols-12">
               <p
-                class="align-center col-start-1 col-end-4 flex text-slate-50"
+                class="align-center col-start-1 col-end-4 font-bold text-zinc-400 sm:text-[15px] md:text-[17px] lg:text-[21px]"
                 style="transform: translateY(200px)"
                 id="guts-1-1"
               >
-                The chip uses powerful new adaptation algorithms to process sound more quickly,
-                tuning audio at the precise moment you hear it. Every detail is rendered for your
-                specific ear shape, immersing you in higher‑fidelity sound.
+                The chip uses powerful
+                <span class="text-slate-50">new adaptation algorithms</span> to process sound more
+                quickly, tuning audio at the precise moment you hear it. Every detail is rendered
+                for your specific ear shape, immersing you in
+                <span class="text-code-green">higher‑fidelity sound.</span>
               </p>
             </div>
             <div class="absolute ml-auto mr-auto grid w-[980px] grid-cols-12">
               <p
-                class="align-center col-start-1 col-end-4 flex text-slate-50 opacity-0"
+                class="align-center col-start-1 col-end-4 font-bold text-zinc-400 sm:text-[15px] md:text-[17px] lg:text-[21px]"
                 style="transform: translateY(200px)"
                 id="guts-1-2"
               >
-                A redesigned inward-facing microphone works with voice enhancement algorithms to
-                better recognize and articulate your voice, so it sounds more natural when you’re on
-                phone and video calls.
+                <span class="text-slate-50">A redesigned inward-facing microphone</span> works with
+                voice enhancement algorithms to better recognize and articulate your voice, so it
+                <span class="text-code-green">sounds more natural</span> when you’re on phone and
+                video calls.
               </p>
             </div>
 
@@ -121,13 +139,13 @@
           >
             <div class="absolute ml-auto mr-auto grid w-[980px] grid-cols-12">
               <p
-                class="align-center col-start-9 col-end-12 flex text-slate-50"
+                class="align-center col-start-9 col-end-12 font-bold text-zinc-400 sm:text-[15px] md:text-[17px] lg:text-[21px]"
                 style="transform: translateY(200px)"
                 id="guts-2-1"
               >
-                A custom-built driver and amplifier work with the H2 chip to provide lower
-                distortion during playback, so you’ll hear deeper bass and crisper highs — across
-                all volume levels
+                <span class="text-slate-50">A custom-built driver and amplifier</span> work with the
+                <span class="text-code-green">H2 chip</span> to provide lower distortion during
+                playback, so you’ll hear deeper bass and crisper highs — across all volume levels
               </p>
             </div>
             <img
@@ -165,32 +183,45 @@
     </div>
     <div class="bg-black" id="section-3">
       <div class="relative z-20 -mt-[20vh] mb-20 text-slate-50" id="sticky-section-3">
-        <div class="mx-auto mb-10 w-[980px]">
-          <div class="text-4xl">Noise cancellation</div>
-          <div class="mb-10 text-9xl font-bold">A marvel of modern silence.</div>
-          <div class="text-4xl">
+        <div class="mx-auto mb-20 w-[980px]">
+          <h2 class="md:text-[24px] lg:text-[32px]">Noise cancellation</h2>
+          <h1 class="mb-10 sm:text-[52px] md:text-[80px] lg:text-[120px]">
+            A marvel of modern silence.
+          </h1>
+          <h2 class="leading-tight md:text-[24px] lg:text-[32px]">
             Featuring up to two times more noise cancellation than their predecessor, the H2-powered
             AirPods Pro are built to let you listen in peace. With control over what you hear — and
             don’t hear — you’ll be immersed in songs and podcasts like never before.
-          </div>
+          </h2>
         </div>
         <div
           class="grid grid-cols-2 grid-rows-2 gap-[1px] border-b border-t border-zinc-700 bg-zinc-700"
         >
-          <div class="col-span-1 flex items-center justify-center bg-black p-20">
-            <div class="">
-              <p class="text-center">
-                Up to <br />
-                2x <br />more Active <br />
-                Noise Cancellation.
-              </p>
-            </div>
+          <div class="relative col-span-1 flex items-center justify-center bg-black p-20">
+            <p
+              class="relative z-10 mx-auto w-full text-center font-semibold sm:text-[17px] lg:text-[22px]"
+            >
+              Up to <br />
+              <span class="sm:text-[72px] md:text-[80px] lg:text-[120px]">2x </span><br /><span
+                class="text-code-green"
+                >more</span
+              >
+              Active
+              <br />
+              Noise Cancellation.
+            </p>
+            <img
+              class="absolute inset-0 h-full w-full object-cover"
+              src="https://www.apple.com/v/airpods-pro/g/images/overview/noise_cancel_particle__e2ew4rzcyjee_large.jpg"
+              alt=""
+            />
           </div>
           <div class="relative col-start-2 row-span-2 overflow-hidden bg-black">
             <div class="flex flex-col p-24">
-              <p class="w-1/3">
-                Noise-cancelling microphones and a rear vent are optimally placed to quickly detect
-                sound coming in, working together to counter noise before it reaches your ear.
+              <p class="w-1/2 font-semibold text-zinc-400 sm:text-[17px] lg:text-[22px]">
+                <span class="text-slate-50">Noise-cancelling microphones</span> and a rear vent are
+                optimally placed to quickly detect sound coming in, working together to
+                <span class="text-code-green">counter</span> noise before it reaches your ear.
               </p>
               <img
                 class="relative left-10 float-right -mb-[12em] mt-[50px] h-[791px] w-full overflow-visible object-contain"
@@ -202,18 +233,21 @@
           </div>
           <div class="col-span-1 flex items-center justify-center bg-black p-20">
             <div>
-              <p class="">
-                A new driver and improved acoustic algorithms help Active Noise Cancellation reduce
-                more unwanted noise, so nothing interrupts listening during your commute and when
-                you need to focus.
+              <p class="font-semibold text-zinc-400 sm:text-[22px] lg:text-[28px]">
+                A new driver and improved acoustic algorithms help
+                <span class="text-slate-50">Active Noise Cancellation</span> reduce more unwanted
+                noise, so nothing interrupts listening during your commute and when you need to
+                <span class="text-code-green">focus.</span>
               </p>
             </div>
           </div>
         </div>
         <div class="p-20">
-          <p class="w-1/2">
-            Now with an extra-small size, four pairs of silicone tips are included to fit a wider
-            range of ears. The tips create an acoustic seal that closes in the sound — and secure
+          <p class="w-1/2 font-semibold text-zinc-400 sm:text-[17px] lg:text-[22px]">
+            Now with an extra-small size,
+            <span class="text-slate-50">four pairs of silicone tips</span> are included to fit a
+            wider range of ears. The tips create an
+            <span class="text-code-green">acoustic seal</span> that closes in the sound — and secure
             AirPods Pro in place.
           </p>
           <div class="flex flex-row justify-center gap-x-10 pt-20" id="ear-tips-container">
@@ -321,16 +355,16 @@
     <div class="bg-black" id="section-4">
       <div class="text-slate-50">
         <div class="mx-auto mb-24 w-[980px]">
-          <div class="text-4xl">Case and battery life</div>
-          <div class="mb-10 text-9xl font-bold">
+          <h2 class="md:text-[24px] lg:text-[32px]">Case and battery life</h2>
+          <h1 class="mb-10 sm:text-[52px] md:text-[80px] lg:text-[120px]">
             A case of unmistakable <span class="text-code-green">power.</span>
-          </div>
-          <div class="text-4xl">
+          </h1>
+          <h2 class="md:text-[24px] lg:text-[32px]">
             The new MagSafe Charging Case is loaded with features that make listening on the move
             especially convenient. An updated design offers more ways to keep track of the case, and
             extended battery life lets you listen, watch and talk longer between charges. You won’t
             find a more capable case.
-          </div>
+          </h2>
         </div>
         <div class="grid grid-cols-2 gap-[1px] border-b border-t border-zinc-700 bg-zinc-700">
           <div
@@ -407,13 +441,15 @@
     <div class="bg-black" id="section-5">
       <div class="text-slate-50">
         <div class="mx-auto mb-24 w-[980px] pt-20" id="magical-experience-container">
-          <div class="text-4xl">Magical experience</div>
-          <div class="mb-10 text-9xl font-bold">Simplicity on a grand scale.</div>
-          <div class="text-4xl">
+          <h2 class="md:text-[24px] lg:text-[32px]">Magical experience</h2>
+          <h1 class="mb-10 sm:text-[52px] md:text-[80px] lg:text-[120px]">
+            Simplicity on a grand scale.
+          </h1>
+          <h2 class="md:text-[24px] lg:text-[32px]">
             From instant setup to Siri commands, AirPods Pro hold all the qualities that make the
             AirPods family so magical. And new features give you the ability to move through more
             tasks with unprecedented ease.
-          </div>
+          </h2>
         </div>
         <div class="relative h-[170vh] opacity-0" id="phone-video-container">
           <div class="sticky top-0 flex h-[100vh] flex-col items-center justify-center p-20">

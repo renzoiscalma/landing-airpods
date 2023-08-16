@@ -127,7 +127,7 @@ function modifyGuts(scrollFraction) {
     // TODO polish values here
     let guts1PercentScrolled = getPercentage(Math.max(0, Math.min(1 - 0.5, percent)), 0, 0.5);
     let guts2PercentScrolled = getPercentage(Math.max(0, Math.min(1 - 0.5, percent - 0.4)), 0, 0.5);
-    console.log(`translateY(${gutsTextBottom - gutsTextBottom * guts1PercentScrolled * 2}px)`);
+    // console.log(`translateY(${gutsTextBottom - gutsTextBottom * guts1PercentScrolled * 2}px)`);
     text1.style.transform = `translateY(${
       gutsTextBottom - gutsTextBottom * guts1PercentScrolled * 2
     }px)`;
@@ -150,7 +150,7 @@ function modifyGuts(scrollFraction) {
       gutsTextBottom - gutsTextBottom * guts2PercentScrolled * 2
     }px)`;
 
-    console.log(percent, guts1PercentScrolled, guts2PercentScrolled);
+    // console.log(percent, guts1PercentScrolled, guts2PercentScrolled);
 
     // console.log(percent);
   } else if (scrollFraction > 0.25 && scrollFraction < 0.5) {
@@ -178,7 +178,7 @@ function modifyGuts(scrollFraction) {
     let percent = getPercentage(scrollFraction - 0.5, 0, 0.25);
     let podOpacity = getPercentage(percent, 0.4, 0.6);
     imgPod.style.opacity = podParticles.style.opacity = 1 - podOpacity;
-    console.log(percent, podOpacity);
+    // console.log(percent, podOpacity);
   }
 }
 
@@ -251,7 +251,7 @@ function modifyEarTips(scrollFraction) {
   );
 
   for (let i = 0; i < tipsRef.length; i++) {
-    console.log(localScrollFraction, minScrollFraction[i], maxScrollFraction[i]);
+    // console.log(localScrollFraction, minScrollFraction[i], maxScrollFraction[i]);
     if (localScrollFraction > minScrollFraction[i] && localScrollFraction < maxScrollFraction[i]) {
       tipsRef[i].style.transform = computeTransformXMatrix(localScrollFraction, 25, -50, false);
       tipsRef[i].style.opacity = computeOpacity(
@@ -269,7 +269,7 @@ function modifyCaseVideo(scrollFraction) {
   let VIDEO_DURATION = 5.367;
   video.currentTime = Math.min(VIDEO_DURATION, scrollFraction * VIDEO_DURATION);
   let { currentTime } = video;
-  console.log(currentTime);
+  // console.log(currentTime);
   let textShowBreakpoints = [1.5, 2.8, 4.1, 5.3];
   let textHideBreakpoints = [1.5, 3.8];
   let text1 = document.getElementById("case-feat-1");
