@@ -43,19 +43,20 @@ function updateImage(frame) {
 }
 
 function isScrollUp() {
-  return scrollUp;
+  return html.scrollTop < lastScrollTop;
 }
 
 document.addEventListener("scroll", function () {
   const currSection = getCurrentSection();
   if (currSection == -1) return;
   const currSectionOffSet = offset(sections[currSection]);
-  const scrollTop = html.scrollTop;
-  const maxScrollTop = currSectionOffSet.bottom;
-  const percentScrolledOfSection = getPercentage(scrollTop, currSectionOffSet.top, maxScrollTop);
+  const percentScrolledOfSection = getPercentage(
+    currSection > 0 ? html.scrollTop + window.innerHeight : html.scrollTop,
+    currSectionOffSet.top,
+    currSectionOffSet.bottom,
+  );
   const scrollFraction = Math.max(0.0001, percentScrolledOfSection);
-  scrollUp = scrollTop < lastScrollTop;
-  lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+  lastScrollTop = html.scrollTop <= 0 ? 0 : html.scrollTop;
   modifySections(scrollFraction, currSection);
 });
 
@@ -72,7 +73,66 @@ function offset(el) {
 
 function getCurrentSection() {
   const scrollTop = html.scrollTop;
-  return sections.findIndex((section) => scrollTop <= Number(offset(section).bottom));
+  return sections.findIndex(
+    (section) => scrollTop + window.innerHeight <= Number(offset(section).bottom),
+  );
+}
+
+function modifySections(scrollFraction, currSection) {
+  console.log(scrollFraction, currSection);
+  if (currSection == 0) {
+    modifyHeroByFraction(scrollFraction);
+    modifyAirpodsAnimation(scrollFraction);
+    document.getElementById("video-dancer-container").style.opacity =
+      scrollFraction >= 0.8 && scrollFraction < 0.99 ? scrollFraction : 0;
+  }
+
+  if (currSection == 1) {
+    modifyHeroByFraction(1);
+    modifyAirpodsAnimation(1);
+    document.getElementById("video-dancer-container").style.opacity =
+      scrollFraction < 0.7 ? 1 : 1 - computeOpacity(scrollFraction, 0.7, 1);
+    modifyDancerText(scrollFraction);
+  }
+
+  if (currSection == 2) {
+    let gutsContainer = document.getElementById("guts-container");
+    let { top: gutsContTop, bottom: gutsContBot } = offset(gutsContainer);
+    if (html.scrollTop >= gutsContTop) {
+      let gutsScrollFraction = getPercentage(html.scrollTop, gutsContTop, gutsContBot);
+      console.log(gutsScrollFraction);
+      modifyGuts(gutsScrollFraction);
+    }
+  }
+
+  if (currSection == 3) {
+    const eartipContainer = document.getElementById("ear-tips-container");
+    let containerOffset = offset(eartipContainer);
+    if (
+      window.scrollY + window.innerHeight >
+        containerOffset.bottom - eartipContainer.offsetHeight / 2 &&
+      window.scrollY + window.innerHeight < containerOffset.bottom
+    ) {
+      modifyEarTips(scrollFraction);
+    }
+  }
+
+  if (currSection == 4) {
+    let caseVideoContainer = document.getElementById("case-video");
+    let caseVideoOffset = offset(caseVideoContainer);
+    if (window.scrollY > caseVideoOffset.top) {
+      let caseVideoScrolled = getPercentage(
+        window.scrollY,
+        caseVideoOffset.top,
+        caseVideoOffset.bottom - window.innerHeight - 200,
+      );
+      modifyCaseVideo(caseVideoScrolled);
+    }
+  }
+
+  if (currSection == 5) {
+    modifyPhoneVideo(scrollFraction);
+  }
 }
 
 // hero animation finished when scrollFraction on hero section is 40%
@@ -90,13 +150,12 @@ function modifyHeroByFraction(scrollFraction) {
 
   // modify hero payoff section
   // todo gradual opacity
+  document.getElementById("hero-payoff").style.opacity =
+    scrollFraction > 0.6 ? 0 : computeOpacity(scrollFraction, 0.4, 0.6);
   if (scrollFraction > 0.4 && scrollFraction < 0.6) {
-    document.getElementById("hero-payoff").style.opacity = 1;
     document.getElementById("hero-payoff").style.transform = `matrix(${size - 0.2}, 0, 0, ${
       size - 0.2
     }, 0, 0)`;
-  } else {
-    document.getElementById("hero-payoff").style.opacity = 0;
   }
 }
 // hero animation finished when scrollFraction on hero section is 80%
@@ -182,54 +241,25 @@ function modifyGuts(scrollFraction) {
   }
 }
 
-function modifySections(scrollFraction, currSection) {
-  if (currSection == 0) {
-    modifyHeroByFraction(scrollFraction);
-    modifyAirpodsAnimation(scrollFraction);
-    document.getElementById("video-dancer-container").style.opacity =
-      scrollFraction >= 0.6 && scrollFraction < 0.99 ? 1 : 0;
-  }
-
-  if (currSection == 1) {
-    document.getElementById("video-dancer-container").style.opacity = 0;
-  }
-
-  if (currSection == 2) {
-    modifyGuts(scrollFraction);
-  }
-
-  if (currSection == 3) {
-    const eartipContainer = document.getElementById("ear-tips-container");
-    let containerOffset = offset(eartipContainer);
-    if (
-      window.scrollY + window.innerHeight >
-        containerOffset.bottom - eartipContainer.offsetHeight / 2 &&
-      window.scrollY + window.innerHeight < containerOffset.bottom
-    ) {
-      modifyEarTips(scrollFraction);
-    }
-  }
-
-  if (currSection == 4) {
-    let caseVideoContainer = document.getElementById("case-video");
-    let caseVideoOffset = offset(caseVideoContainer);
-    if (window.scrollY > caseVideoOffset.top) {
-      let caseVideoScrolled = getPercentage(
-        window.scrollY,
-        caseVideoOffset.top,
-        caseVideoOffset.bottom - window.innerHeight - 200,
-      );
-      modifyCaseVideo(caseVideoScrolled);
-    }
-  }
-
-  if (currSection == 5) {
-    modifyPhoneVideo(scrollFraction);
-  }
-}
-
 function getPercentage(val, min, max) {
   return (val - min) / (max - min);
+}
+
+function modifyDancerText(scrollFraction) {
+  const sentence1 = document.getElementById("sentence-1");
+  const sentence2 = document.getElementById("sentence-2");
+  const sentence3 = document.getElementById("sentence-3");
+  const sentence4 = document.getElementById("sentence-4");
+  const sentencesRef = [sentence1, sentence2, sentence3, sentence4];
+  const minScrollFraction = [0, 0.15, 0.4, 0.65];
+  const maxScrollFraction = [0.35, 0.5, 0.75, 0.9];
+
+  for (let i = 0; i < sentencesRef.length; i++) {
+    if (scrollFraction > minScrollFraction[i]) {
+      let resOpacity = computeOpacity(scrollFraction, minScrollFraction[i], maxScrollFraction[i]);
+      sentencesRef[i].style.opacity = resOpacity < 0.15 ? 0.15 : resOpacity;
+    }
+  }
 }
 
 function modifyEarTips(scrollFraction) {
