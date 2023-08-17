@@ -11,7 +11,9 @@
       href="https://cdn.jsdelivr.net/gh/mailtoharshit/San-Francisco-Font-/sanfrancisco.css"
     />
   </head>
-  <body class="m-0 bg-black font-bold leading-[1.15] tracking-tighter">
+  <body
+    class="m-0 bg-black font-bold leading-[1.15] tracking-tighter opacity-0 transition-opacity duration-500 ease-in-out"
+  >
     <div class="relative bg-black" id="hero">
       <div class="relative z-10 h-[250vh]">
         <div class="sticky top-0 h-[100vh]" id="sticky-hero">
@@ -50,7 +52,9 @@
           <div
             class="pointer-events-none absolute top-0 flex h-full w-full items-center justify-center"
           >
-            <div class="absolute flex w-full translate-y-[-15%] justify-center">
+            <div
+              class="absolute flex w-full translate-y-[-41%] justify-center md:translate-y-[-15%]"
+            >
               <canvas class="w-full will-change-transform" id="airpods-hero-canvas"></canvas>
             </div>
           </div>
@@ -76,7 +80,7 @@
             ></video>
           </div>
         </div>
-        <div class="relative z-10 mx-auto flex w-[880px] items-center justify-center">
+        <div class="relative z-10 mx-auto flex max-w-[880px] items-center justify-center">
           <p
             class="text-5xl font-bold tracking-tight text-slate-50 sm:text-[27px] md:text-[44px] lg:text-[56px]"
           >
@@ -103,7 +107,7 @@
             class="sticky top-0 flex h-[100vh] items-center justify-center transition-opacity ease-in-out"
             id="img-guts-1"
           >
-            <div class="absolute ml-auto mr-auto grid w-[980px] grid-cols-12">
+            <div class="absolute ml-auto mr-auto grid max-w-[980px] grid-cols-12">
               <p
                 class="align-center col-start-1 col-end-4 font-bold text-zinc-400 opacity-0 sm:text-[15px] md:text-[17px] lg:text-[21px]"
                 style="transform: translateY(200px)"
@@ -116,7 +120,7 @@
                 <span class="text-code-green">higher‑fidelity sound.</span>
               </p>
             </div>
-            <div class="absolute ml-auto mr-auto grid w-[980px] grid-cols-12">
+            <div class="absolute ml-auto mr-auto grid max-w-[980px] grid-cols-12">
               <p
                 class="align-center col-start-1 col-end-4 font-bold text-zinc-400 opacity-0 sm:text-[15px] md:text-[17px] lg:text-[21px]"
                 style="transform: translateY(200px)"
@@ -142,7 +146,7 @@
             class="sticky top-0 flex h-[100vh] items-center justify-center opacity-0 transition-opacity ease-in-out"
             id="img-guts-2"
           >
-            <div class="absolute ml-auto mr-auto grid w-[980px] grid-cols-12">
+            <div class="absolute ml-auto mr-auto grid max-w-[980px] grid-cols-12">
               <p
                 class="align-center col-start-9 col-end-12 font-bold text-zinc-400 opacity-0 sm:text-[15px] md:text-[17px] lg:text-[21px]"
                 style="transform: translateY(200px)"
@@ -188,7 +192,7 @@
     </div>
     <div class="bg-black" id="section-3">
       <div class="relative z-20 -mt-[20vh] mb-20 text-slate-50" id="sticky-section-3">
-        <div class="mx-auto mb-20 w-[980px]">
+        <div class="mx-auto mb-20 max-w-[980px]">
           <h2 class="md:text-[24px] lg:text-[32px]">Noise cancellation</h2>
           <h1 class="mb-10 sm:text-[52px] md:text-[80px] lg:text-[120px]">
             A marvel of modern silence.
@@ -329,11 +333,27 @@
         </div>
         <div class="border-b border-zinc-700 bg-zinc-700">
           <div class="relative bg-black p-20 pt-0">
-            <div class="relative flex flex-row items-end justify-center">
-              <div class="z-10 -mr-[50px] mb-10 text-[5vw]">A higher level</div>
-              <div class="relative z-0 h-[450px] w-[400px] shrink">
+            <div class="relative flex flex-col items-end justify-center md:flex-row">
+              <div class="relative z-0 h-[320px] w-[360px] shrink md:hidden">
                 <img
-                  class="absolute h-[450px] w-[559px] max-w-none"
+                  class="absolute h-[320px] w-[360px] max-w-none"
+                  src="https://www.apple.com/v/airpods-pro/g/images/overview/touch_control_airpod__e9hauo6fitim_large.jpg"
+                  alt="The scooped area on the stem that activates Touch control."
+                />
+                <div
+                  class="-skew-y[11.5deg] absolute left-[180px] top-[80px] h-[280px] w-[110px] skew-x-[23.5deg]"
+                  id="touch-control-container"
+                >
+                  <div
+                    class="h-[110px] w-[110px] rounded-full bg-code-green opacity-0 transition ease-out"
+                    id="touch-control-circle"
+                  ></div>
+                </div>
+              </div>
+              <div class="z-10 -mr-[50px] mb-10 text-[5vw]">A higher level</div>
+              <div class="relative z-0 hidden h-[320px] w-[360px] shrink md:block">
+                <img
+                  class="absolute h-[320px] w-[360px] max-w-none"
                   src="https://www.apple.com/v/airpods-pro/g/images/overview/touch_control_airpod__e9hauo6fitim_large.jpg"
                   alt="The scooped area on the stem that activates Touch control."
                 />
@@ -363,7 +383,7 @@
     </div>
     <div class="bg-black" id="section-4">
       <div class="text-slate-50">
-        <div class="mx-auto mb-24 w-[980px]">
+        <div class="mx-auto mb-24 max-w-[980px]">
           <h2 class="md:text-[24px] lg:text-[32px]">Case and battery life</h2>
           <h1 class="mb-10 sm:text-[52px] md:text-[80px] lg:text-[120px]">
             A case of unmistakable <span class="text-code-green">power.</span>
@@ -434,7 +454,7 @@
                 src="./assets/airpods.webm"
               ></video>
               <p
-                class="absolute top-[calc(50vh+38px)] max-w-[390px] text-center font-semibold text-zinc-400 sm:text-[17px] lg:text-[22px]"
+                class="absolute top-[calc(50vh+100px)] max-w-[269px] text-center font-semibold text-zinc-400 sm:text-[17px] md:max-w-[335px] lg:max-w-[390px] lg:text-[22px]"
                 id="case-feat-1"
               >
                 A new <span class="text-code-green">U1 chip</span> enables
@@ -444,7 +464,7 @@
               </p>
 
               <p
-                class="absolute -right-[188px] top-[calc(50vh-70px)] max-w-[390px] text-center font-semibold text-zinc-400 opacity-0 sm:text-[17px] lg:text-[22px]"
+                class="absolute top-[calc(50vh+100px)] max-w-[269px] text-center font-semibold text-zinc-400 opacity-0 sm:text-[17px] md:max-w-[325px] lg:-right-[120px] lg:top-[calc(50vh-70px)] lg:text-[22px]"
                 id="case-feat-2"
               >
                 A <span class="text-slate-50">lanyard loop</span> allows you to attach the case to a
@@ -452,7 +472,7 @@
               </p>
 
               <p
-                class="absolute -right-[188px] top-[calc(50vh+80px)] max-w-[390px] text-center font-semibold text-zinc-400 opacity-0 sm:text-[17px] lg:text-[22px]"
+                class="absolute top-[calc(50vh+100px)] max-w-[269px] text-center font-semibold text-zinc-400 opacity-0 sm:text-[17px] md:top-[calc(50vh+80px)] md:max-w-[325px] lg:-right-[120px] lg:text-[22px]"
                 id="case-feat-3"
               >
                 The case’s <span class="text-slate-50">built‑in speaker</span> plays sound to help
@@ -461,7 +481,7 @@
               </p>
 
               <p
-                class="absolute top-[calc(50vh+100px)] max-w-[390px] text-center font-semibold text-zinc-400 opacity-0 sm:text-[17px] lg:text-[22px]"
+                class="absolute top-[calc(50vh+100px)] max-w-[269px] text-center font-semibold text-zinc-400 opacity-0 sm:text-[17px] md:max-w-[325px] lg:max-w-[390px] lg:text-[22px]"
                 id="case-feat-4"
               >
                 Both AirPods Pro and the MagSafe Charging Case are
@@ -475,7 +495,7 @@
     </div>
     <div class="bg-black" id="section-5">
       <div class="text-slate-50">
-        <div class="mx-auto mb-24 w-[980px] pt-20" id="magical-experience-container">
+        <div class="mx-auto mb-24 max-w-[980px] pt-20" id="magical-experience-container">
           <h2 class="md:text-[24px] lg:text-[32px]">Magical experience</h2>
           <h1 class="mb-10 sm:text-[52px] md:text-[80px] lg:text-[120px]">
             Simplicity on a grand scale.
@@ -552,7 +572,7 @@
           </div>
         </div>
         <div class="flex h-[100vh] items-center justify-center p-20 pt-0">
-          <div class="grid max-w-[980px] grid-cols-2 gap-x-[130px] gap-y-[80px]">
+          <div class="max-max-w-[980px] grid grid-cols-2 gap-x-[130px] gap-y-[80px]">
             <div class="font-semibold text-zinc-400 sm:text-[17px] lg:text-[22px]">
               <img
                 class="mb-7"
@@ -612,5 +632,5 @@
     </div>
     <div class="bg-black" id="section-6"></div>
   </body>
-  <script src="index.js"></script>
+  <script type="module" src="index.js"></script>
 </html>
