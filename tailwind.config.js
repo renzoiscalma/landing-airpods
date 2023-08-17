@@ -44,6 +44,8 @@ module.exports = {
           return {
             "mask-image": `${value}`,
             "-webkit-mask-image": `${value}`,
+            "-webkit-mask-size": "100% 100%",
+            "mask-size": "100% 100%",
           };
         },
       });

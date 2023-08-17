@@ -5,10 +5,10 @@ export default class Hero {
     this.canvasImg = new Image();
     this.airpodsCanvas = document.getElementById("airpods-hero-canvas");
     this.context = this.airpodsCanvas.getContext("2d");
-    this.heroMaxFrame = { s: 64, m: 64, l: 64 };
+    this.heroMaxFrame = { s: 92, m: 64, l: 64 };
     this.loadedImages = { s: false, m: false, l: false };
     this.calledLoadImages = { s: false, m: false, l: false };
-    this.loadedRemaining = { s: 64, m: 64, l: 64 };
+    this.loadedRemaining = { s: 92, m: 64, l: 64 };
     this.canvasImg;
     this.images = {
       s: new Array(92),
@@ -53,6 +53,9 @@ export default class Hero {
     let fileExt = "";
     switch (viewPortSize) {
       case "s":
+        viewPortSizeStr = "small";
+        fileExt = "jpg";
+        break;
       case "m":
         viewPortSizeStr = "medium";
         fileExt = "png";
@@ -96,9 +99,6 @@ export default class Hero {
     document.getElementById("hero-maintext").style.opacity = opacity;
     document.getElementById("all-new").style.opacity = opacity;
     document.getElementById("watch-links").style.opacity = opacity < 0.5 ? opacity : 1;
-
-    // modify hero payoff section
-    // todo gradual opacity
     document.getElementById("hero-payoff").style.opacity =
       scrollFraction > 0.6 ? 0 : computeOpacity(scrollFraction, 0.4, 0.6);
     if (scrollFraction > 0.4 && scrollFraction < 0.6) {
@@ -112,7 +112,7 @@ export default class Hero {
   modifyAirpodsAnimation(scrollFraction) {
     let percent = getPercentage(Math.min(0.8, scrollFraction), 0, 0.5);
     let heroMaxFrame = this.heroMaxFrame[getCurrentViewportSize()];
-
+    this.airpodsCanvas.style.opacity = 1 - percent;
     this.currentFrame = Math.min(heroMaxFrame, Math.floor(percent * heroMaxFrame));
     window.requestAnimationFrame(() => this.draw(this.currentFrame + 1, getCurrentViewportSize()));
   }
@@ -138,6 +138,9 @@ export default class Hero {
     let viewPortSize = getCurrentViewportSize();
     switch (viewPortSize) {
       case "s":
+        this.airpodsCanvas.width = 734;
+        this.airpodsCanvas.height = 412;
+        break;
       case "m":
         this.airpodsCanvas.width = 1068;
         this.airpodsCanvas.height = 600;

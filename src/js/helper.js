@@ -1,17 +1,17 @@
 export function getCurrentViewportSize() {
-  // if (window.innerWidth >= 1068) {
-  //   return "l";
-  // } else if (window.innerWidth >= 640) {
-  //   return "m";
-  // } else return "s";
-
-  if (window.innerWidth <= 640) {
-    return "s";
-  } else if (window.innerWidth <= 1068) {
-    return "m";
-  } else {
+  if (window.innerWidth >= 1068) {
     return "l";
-  }
+  } else if (window.innerWidth >= 640) {
+    return "m";
+  } else return "s";
+
+  // if (window.innerWidth <= 640) {
+  //   return "s";
+  // } else if (window.innerWidth <= 1068) {
+  //   return "m";
+  // } else {
+  //   return "l";
+  // }
 }
 
 export function offset(el) {
