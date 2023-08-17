@@ -1,50 +1,39 @@
-let heroMaxFrame = 64;
-let lastScrollTop = 0;
-let scrollUp = false;
+import {
+  computeOpacity,
+  computeTransformXMatrix,
+  computeTransformYMatrix,
+  getCurrentViewportSize,
+  getPercentage,
+  offset,
+} from "./js/helper.js";
+import Hero from "./js/hero.js";
+
 const html = document.documentElement;
-const hero = document.getElementById("hero");
-const section1 = document.getElementById("section-1");
-const section2 = document.getElementById("section-2");
-const section3 = document.getElementById("section-3");
-const section4 = document.getElementById("section-4");
-const section5 = document.getElementById("section-5");
+const heroElement = document.getElementById("hero");
+const section1Element = document.getElementById("section-1");
+const section2Element = document.getElementById("section-2");
+const section3Element = document.getElementById("section-3");
+const section4Element = document.getElementById("section-4");
+const section5Element = document.getElementById("section-5");
+const sections = [
+  heroElement,
+  section1Element,
+  section2Element,
+  section3Element,
+  section4Element,
+  section5Element,
+];
+const hero = new Hero(getCurrentViewportSize());
+let lastScrollTop = 0;
 
-const sections = [hero, section1, section2, section3, section4, section5];
+document.addEventListener("firstImageLoaded", function () {
+  document.body.style.opacity = 1;
+  window.requestAnimationFrame(() => hero.draw(0, getCurrentViewportSize()));
+});
 
-const airpodsCanvas = document.getElementById("airpods-hero-canvas");
-const canvasImg = new Image();
-const context = airpodsCanvas.getContext("2d");
-
-const images = [];
-
-for (let i = 1; i <= heroMaxFrame; i++) {
-  images[i] = new Image();
-  images[i].src = getImage(i);
-}
-
-canvasImg.src = getImage(0);
-airpodsCanvas.width = 1440;
-airpodsCanvas.height = 810;
-
-canvasImg.onload = function () {
-  context.drawImage(canvasImg, 0, 0);
-};
-
-function getImage(frame) {
-  return `https://www.apple.com/105/media/us/airpods-pro/2022/d2deeb8e-83eb-48ea-9721-f567cf0fffa8/anim/hero/large/${frame
-    .toString()
-    .padStart(4, "0")}.png`;
-}
-
-function updateImage(frame) {
-  canvasImg.src = getImage(frame);
-  context.clearRect(0, 0, airpodsCanvas.width, airpodsCanvas.height);
-  context.drawImage(images[frame], 0, 0);
-}
-
-function isScrollUp() {
-  return html.scrollTop < lastScrollTop;
-}
+window.addEventListener("resize", function () {
+  hero.resized();
+});
 
 document.addEventListener("scroll", function () {
   const currSection = getCurrentSection();
@@ -60,15 +49,8 @@ document.addEventListener("scroll", function () {
   modifySections(scrollFraction, currSection);
 });
 
-function offset(el) {
-  var rect = el.getBoundingClientRect(),
-    scrollLeft = window.scrollX || document.documentElement.scrollLeft,
-    scrollTop = window.scrollY || document.documentElement.scrollTop;
-  return {
-    top: rect.top + scrollTop,
-    left: rect.left + scrollLeft,
-    bottom: rect.top + scrollTop + el.offsetHeight,
-  };
+function isScrollUp() {
+  return html.scrollTop < lastScrollTop;
 }
 
 function getCurrentSection() {
@@ -81,15 +63,13 @@ function getCurrentSection() {
 function modifySections(scrollFraction, currSection) {
   console.log(scrollFraction, currSection);
   if (currSection == 0) {
-    modifyHeroByFraction(scrollFraction);
-    modifyAirpodsAnimation(scrollFraction);
+    hero.updateHero(scrollFraction);
     document.getElementById("video-dancer-container").style.opacity =
       scrollFraction >= 0.8 && scrollFraction < 0.99 ? scrollFraction : 0;
   }
 
   if (currSection == 1) {
-    modifyHeroByFraction(1);
-    modifyAirpodsAnimation(1);
+    hero.endHero();
     document.getElementById("video-dancer-container").style.opacity =
       scrollFraction < 0.7 ? 1 : 1 - computeOpacity(scrollFraction, 0.7, 1);
     modifyDancerText(scrollFraction);
@@ -133,37 +113,6 @@ function modifySections(scrollFraction, currSection) {
   if (currSection == 5) {
     modifyPhoneVideo(scrollFraction);
   }
-}
-
-// hero animation finished when scrollFraction on hero section is 40%
-function modifyHeroByFraction(scrollFraction) {
-  let percent = getPercentage(Math.min(0.4, scrollFraction), 0, 0.4);
-  let opacity = Math.max(0, 1 - percent);
-  let size = 1 + 0.5 * scrollFraction;
-  if (opacity > 0.0001)
-    document.getElementById(
-      "hero-maintext",
-    ).style.transform = `matrix(${size}, 0, 0, ${size}, 0, 0)`;
-  document.getElementById("hero-maintext").style.opacity = opacity;
-  document.getElementById("all-new").style.opacity = opacity;
-  document.getElementById("watch-links").style.opacity = opacity < 0.5 ? opacity : 1;
-
-  // modify hero payoff section
-  // todo gradual opacity
-  document.getElementById("hero-payoff").style.opacity =
-    scrollFraction > 0.6 ? 0 : computeOpacity(scrollFraction, 0.4, 0.6);
-  if (scrollFraction > 0.4 && scrollFraction < 0.6) {
-    document.getElementById("hero-payoff").style.transform = `matrix(${size - 0.2}, 0, 0, ${
-      size - 0.2
-    }, 0, 0)`;
-  }
-}
-// hero animation finished when scrollFraction on hero section is 80%
-function modifyAirpodsAnimation(scrollFraction) {
-  let percent = getPercentage(Math.min(0.8, scrollFraction), 0, 0.5);
-
-  const frameIndex = Math.min(heroMaxFrame - 1, Math.floor(percent * heroMaxFrame));
-  window.requestAnimationFrame(() => updateImage(frameIndex + 1));
 }
 
 function modifyGuts(scrollFraction) {
@@ -239,10 +188,6 @@ function modifyGuts(scrollFraction) {
     imgPod.style.opacity = podParticles.style.opacity = 1 - podOpacity;
     // console.log(percent, podOpacity);
   }
-}
-
-function getPercentage(val, min, max) {
-  return (val - min) / (max - min);
 }
 
 function modifyDancerText(scrollFraction) {
@@ -411,30 +356,6 @@ function phoneVideoScrolling(scrollFraction) {
 
   phoneText2.style.opacity = scrollFraction > 0.95 ? 1 : computeOpacity(scrollFraction, 0.6, 1);
   phoneText2.style.transform = computeTransformYMatrix(scrollFraction, 0, -135, true);
-}
-
-function computeOpacity(val, min, max) {
-  return val > min
-    ? val < max
-      ? getPercentage(val, min, max)
-      : 1 - getPercentage(val, min, max)
-    : 0;
-}
-
-function computeTransformYMatrix(scrollFraction, base, max, limit) {
-  if (limit) {
-    if (scrollFraction >= 1) return `matrix(1, 0, 0, 1, 0, ${max})`;
-    if (scrollFraction <= base) return `matrix(1, 0, 0, 1, 0, ${base})`;
-  }
-  return `matrix(1, 0, 0, 1, 0, ${base + scrollFraction * max})`;
-}
-
-function computeTransformXMatrix(scrollFraction, base, max, limit) {
-  if (limit) {
-    if (scrollFraction >= 1) return `matrix(1, 0, 0, 1, ${max}, 0)`;
-    if (scrollFraction <= base) return `matrix(1, 0, 0, 1, ${base}, 0)`;
-  }
-  return `matrix(1, 0, 0, 1, ${base + scrollFraction * max}, 0)`;
 }
 
 setInterval(() => {
