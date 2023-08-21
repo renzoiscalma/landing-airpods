@@ -1,50 +1,39 @@
-let heroMaxFrame = 64;
-let lastScrollTop = 0;
-let scrollUp = false;
+import {
+  computeOpacity,
+  computeTransformXMatrix,
+  computeTransformYMatrix,
+  getCurrentViewportSize,
+  getPercentage,
+  offset,
+} from "./js/helper.js";
+import Hero from "./js/hero.js";
+
 const html = document.documentElement;
-const hero = document.getElementById("hero");
-const section1 = document.getElementById("section-1");
-const section2 = document.getElementById("section-2");
-const section3 = document.getElementById("section-3");
-const section4 = document.getElementById("section-4");
-const section5 = document.getElementById("section-5");
+const heroElement = document.getElementById("hero");
+const section1Element = document.getElementById("section-1");
+const section2Element = document.getElementById("section-2");
+const section3Element = document.getElementById("section-3");
+const section4Element = document.getElementById("section-4");
+const section5Element = document.getElementById("section-5");
+const sections = [
+  heroElement,
+  section1Element,
+  section2Element,
+  section3Element,
+  section4Element,
+  section5Element,
+];
+const hero = new Hero(getCurrentViewportSize());
+let lastScrollTop = 0;
 
-const sections = [hero, section1, section2, section3, section4, section5];
+document.addEventListener("firstImageLoaded", function () {
+  document.body.style.opacity = 1;
+  window.requestAnimationFrame(() => hero.draw(0, getCurrentViewportSize()));
+});
 
-const airpodsCanvas = document.getElementById("airpods-hero-canvas");
-const canvasImg = new Image();
-const context = airpodsCanvas.getContext("2d");
-
-const images = [];
-
-for (let i = 1; i <= heroMaxFrame; i++) {
-  images[i] = new Image();
-  images[i].src = getImage(i);
-}
-
-canvasImg.src = getImage(0);
-airpodsCanvas.width = 1440;
-airpodsCanvas.height = 810;
-
-canvasImg.onload = function () {
-  context.drawImage(canvasImg, 0, 0);
-};
-
-function getImage(frame) {
-  return `https://www.apple.com/105/media/us/airpods-pro/2022/d2deeb8e-83eb-48ea-9721-f567cf0fffa8/anim/hero/large/${frame
-    .toString()
-    .padStart(4, "0")}.png`;
-}
-
-function updateImage(frame) {
-  canvasImg.src = getImage(frame);
-  context.clearRect(0, 0, airpodsCanvas.width, airpodsCanvas.height);
-  context.drawImage(images[frame], 0, 0);
-}
-
-function isScrollUp() {
-  return html.scrollTop < lastScrollTop;
-}
+window.addEventListener("resize", function () {
+  hero.resized();
+});
 
 document.addEventListener("scroll", function () {
   const currSection = getCurrentSection();
@@ -60,15 +49,8 @@ document.addEventListener("scroll", function () {
   modifySections(scrollFraction, currSection);
 });
 
-function offset(el) {
-  var rect = el.getBoundingClientRect(),
-    scrollLeft = window.scrollX || document.documentElement.scrollLeft,
-    scrollTop = window.scrollY || document.documentElement.scrollTop;
-  return {
-    top: rect.top + scrollTop,
-    left: rect.left + scrollLeft,
-    bottom: rect.top + scrollTop + el.offsetHeight,
-  };
+function isScrollUp() {
+  return html.scrollTop < lastScrollTop;
 }
 
 function getCurrentSection() {
@@ -79,17 +61,14 @@ function getCurrentSection() {
 }
 
 function modifySections(scrollFraction, currSection) {
-  console.log(scrollFraction, currSection);
   if (currSection == 0) {
-    modifyHeroByFraction(scrollFraction);
-    modifyAirpodsAnimation(scrollFraction);
+    hero.updateHero(scrollFraction);
     document.getElementById("video-dancer-container").style.opacity =
       scrollFraction >= 0.8 && scrollFraction < 0.99 ? scrollFraction : 0;
   }
 
   if (currSection == 1) {
-    modifyHeroByFraction(1);
-    modifyAirpodsAnimation(1);
+    hero.endHero();
     document.getElementById("video-dancer-container").style.opacity =
       scrollFraction < 0.7 ? 1 : 1 - computeOpacity(scrollFraction, 0.7, 1);
     modifyDancerText(scrollFraction);
@@ -100,7 +79,6 @@ function modifySections(scrollFraction, currSection) {
     let { top: gutsContTop, bottom: gutsContBot } = offset(gutsContainer);
     if (html.scrollTop >= gutsContTop) {
       let gutsScrollFraction = getPercentage(html.scrollTop, gutsContTop, gutsContBot);
-      console.log(gutsScrollFraction);
       modifyGuts(gutsScrollFraction);
     }
   }
@@ -135,44 +113,26 @@ function modifySections(scrollFraction, currSection) {
   }
 }
 
-// hero animation finished when scrollFraction on hero section is 40%
-function modifyHeroByFraction(scrollFraction) {
-  let percent = getPercentage(Math.min(0.4, scrollFraction), 0, 0.4);
-  let opacity = Math.max(0, 1 - percent);
-  let size = 1 + 0.5 * scrollFraction;
-  if (opacity > 0.0001)
-    document.getElementById(
-      "hero-maintext",
-    ).style.transform = `matrix(${size}, 0, 0, ${size}, 0, 0)`;
-  document.getElementById("hero-maintext").style.opacity = opacity;
-  document.getElementById("all-new").style.opacity = opacity;
-  document.getElementById("watch-links").style.opacity = opacity < 0.5 ? opacity : 1;
-
-  // modify hero payoff section
-  // todo gradual opacity
-  document.getElementById("hero-payoff").style.opacity =
-    scrollFraction > 0.6 ? 0 : computeOpacity(scrollFraction, 0.4, 0.6);
-  if (scrollFraction > 0.4 && scrollFraction < 0.6) {
-    document.getElementById("hero-payoff").style.transform = `matrix(${size - 0.2}, 0, 0, ${
-      size - 0.2
-    }, 0, 0)`;
-  }
-}
-// hero animation finished when scrollFraction on hero section is 80%
-function modifyAirpodsAnimation(scrollFraction) {
-  let percent = getPercentage(Math.min(0.8, scrollFraction), 0, 0.5);
-
-  const frameIndex = Math.min(heroMaxFrame - 1, Math.floor(percent * heroMaxFrame));
-  window.requestAnimationFrame(() => updateImage(frameIndex + 1));
-}
-
 function modifyGuts(scrollFraction) {
   let MAX_SCROLL_TEXT_APPEARANCE = 0.22;
   let guts1 = document.getElementById("img-guts-1");
   let guts2 = document.getElementById("img-guts-2");
   let imgPod = document.getElementById("img-pod");
   let podParticles = document.getElementById("airpods-particles");
+  let text1 = document.getElementById("guts-1-1");
+  let text2 = document.getElementById("guts-1-2");
+  let text3 = document.getElementById("guts-2-1");
+
   const gutsTextBottom = 200;
+  const GUTS_TEXT_BASE_BOTTOM = 200;
+
+  const minScrollFraction = [0, 0.09, 0.25];
+  const maxScrollFraction = [0.1, 0.25, 0.5];
+
+  text1.style.opacity = computeOpacity(scrollFraction, minScrollFraction[0], maxScrollFraction[0]);
+  text2.style.opacity = computeOpacity(scrollFraction, minScrollFraction[1], maxScrollFraction[1]);
+  text3.style.opacity = computeOpacity(scrollFraction, minScrollFraction[2], maxScrollFraction[2]);
+
   if (scrollFraction < 0.25) {
     guts1.style.opacity = 1;
     guts2.style.opacity = 0;
@@ -181,53 +141,29 @@ function modifyGuts(scrollFraction) {
     podParticles.classList.add("scale-125");
 
     let percent = getPercentage(scrollFraction, 0, 0.25);
-    let text1 = document.getElementById("guts-1-1");
-    let text2 = document.getElementById("guts-1-2");
-    // TODO polish values here
     let guts1PercentScrolled = getPercentage(Math.max(0, Math.min(1 - 0.5, percent)), 0, 0.5);
     let guts2PercentScrolled = getPercentage(Math.max(0, Math.min(1 - 0.5, percent - 0.4)), 0, 0.5);
-    // console.log(`translateY(${gutsTextBottom - gutsTextBottom * guts1PercentScrolled * 2}px)`);
-    text1.style.transform = `translateY(${
-      gutsTextBottom - gutsTextBottom * guts1PercentScrolled * 2
-    }px)`;
 
-    text1.style.opacity =
-      guts1PercentScrolled < MAX_SCROLL_TEXT_APPEARANCE
-        ? guts1PercentScrolled
-        : guts1PercentScrolled > 1 - MAX_SCROLL_TEXT_APPEARANCE
-        ? 1 - guts1PercentScrolled
-        : 1;
+    text1.style.transform =
+      window.innerWidth < 768
+        ? computeTransformYMatrix(guts1PercentScrolled, GUTS_TEXT_BASE_BOTTOM, 0.01)
+        : computeTransformYMatrix(guts1PercentScrolled, GUTS_TEXT_BASE_BOTTOM, -400);
 
-    text2.style.opacity =
-      guts2PercentScrolled < MAX_SCROLL_TEXT_APPEARANCE
-        ? guts2PercentScrolled
-        : guts2PercentScrolled > 1 - MAX_SCROLL_TEXT_APPEARANCE
-        ? 1 - guts2PercentScrolled
-        : 1;
-
-    text2.style.transform = `translateY(${
-      gutsTextBottom - gutsTextBottom * guts2PercentScrolled * 2
-    }px)`;
-
-    // console.log(percent, guts1PercentScrolled, guts2PercentScrolled);
-
-    // console.log(percent);
+    text2.style.transform =
+      window.innerWidth < 768
+        ? computeTransformYMatrix(guts1PercentScrolled, GUTS_TEXT_BASE_BOTTOM, 0.01)
+        : computeTransformYMatrix(guts2PercentScrolled, GUTS_TEXT_BASE_BOTTOM, -400);
   } else if (scrollFraction > 0.25 && scrollFraction < 0.5) {
     guts1.style.opacity = 0;
     guts2.style.opacity = 1;
     imgPod.style.opacity = 0;
     podParticles.classList.remove("scale-100");
     podParticles.classList.add("scale-125");
-    let text3 = document.getElementById("guts-2-1");
     let percent = getPercentage(scrollFraction - 0.25, 0, 0.25);
-    text3.style.transform = `translateY(${gutsTextBottom - gutsTextBottom * percent * 2}px)`;
-    text3.style.opacity =
-      percent < MAX_SCROLL_TEXT_APPEARANCE
-        ? percent
-        : percent > 1 - MAX_SCROLL_TEXT_APPEARANCE
-        ? 1 - percent
-        : 1;
-    // console.log(percent);
+    text3.style.transform =
+      window.innerWidth < 768
+        ? computeTransformYMatrix(guts1PercentScrolled, GUTS_TEXT_BASE_BOTTOM, 0.01)
+        : computeTransformYMatrix(percent, GUTS_TEXT_BASE_BOTTOM, -400);
   } else if (scrollFraction > 0.5) {
     guts1.style.opacity = 0;
     guts2.style.opacity = 0;
@@ -239,10 +175,6 @@ function modifyGuts(scrollFraction) {
     imgPod.style.opacity = podParticles.style.opacity = 1 - podOpacity;
     // console.log(percent, podOpacity);
   }
-}
-
-function getPercentage(val, min, max) {
-  return (val - min) / (max - min);
 }
 
 function modifyDancerText(scrollFraction) {
@@ -413,71 +345,45 @@ function phoneVideoScrolling(scrollFraction) {
   phoneText2.style.transform = computeTransformYMatrix(scrollFraction, 0, -135, true);
 }
 
-function computeOpacity(val, min, max) {
-  return val > min
-    ? val < max
-      ? getPercentage(val, min, max)
-      : 1 - getPercentage(val, min, max)
-    : 0;
-}
-
-function computeTransformYMatrix(scrollFraction, base, max, limit) {
-  if (limit) {
-    if (scrollFraction >= 1) return `matrix(1, 0, 0, 1, 0, ${max})`;
-    if (scrollFraction <= base) return `matrix(1, 0, 0, 1, 0, ${base})`;
-  }
-  return `matrix(1, 0, 0, 1, 0, ${base + scrollFraction * max})`;
-}
-
-function computeTransformXMatrix(scrollFraction, base, max, limit) {
-  if (limit) {
-    if (scrollFraction >= 1) return `matrix(1, 0, 0, 1, ${max}, 0)`;
-    if (scrollFraction <= base) return `matrix(1, 0, 0, 1, ${base}, 0)`;
-  }
-  return `matrix(1, 0, 0, 1, ${base + scrollFraction * max}, 0)`;
-}
-
 setInterval(() => {
-  let circle = document.getElementById("touch-control-circle");
+  let circle =
+    window.innerWidth < 768
+      ? document.getElementById("touch-control-circle-small")
+      : document.getElementById("touch-control-circle-large");
   let MAX_ITERATIONS = 20;
   let PAUSE_ITERATIONS = 10;
   let MAX_DY = 200;
   let iterations = 0;
   let currPauseIterations = 0;
-
   let swipe = setInterval(() => {
     iterations++;
-
     if (iterations == MAX_ITERATIONS / 2 + 1 && currPauseIterations < PAUSE_ITERATIONS) {
       currPauseIterations++;
       iterations--; // negate iterations
       return;
     }
-
     if (iterations <= MAX_ITERATIONS) {
       // swipe down\
       let percentDone = getPercentage(iterations, 0, MAX_ITERATIONS / 2);
       circle.style.transform = `matrix(1, 0, 0, 1, 0, ${percentDone * MAX_DY})`;
       circle.style.opacity = 1 - percentDone;
     }
-
     if (iterations > MAX_ITERATIONS / 2) {
       // swipe up
       let percentDone = getPercentage(iterations, MAX_ITERATIONS / 2, MAX_ITERATIONS);
       circle.style.transform = `matrix(1, 0, 0, 1, 0, ${MAX_DY - percentDone * MAX_DY * 1.2})`;
       circle.style.opacity = 1 - percentDone;
     }
-
     if (iterations >= MAX_ITERATIONS) {
       clearInterval(swipe);
     }
   }, 50);
 }, 5000);
 
-function replayConnectingVideo() {
+window.replayConnectingVideo = () => {
   let phoneVideo = document.getElementById("phone-video");
   phoneVideo.currentTime = 0;
   phoneVideo.play();
-}
+};
 
 // https://codepen.io/braydoncoyer/pen/rNxwgjq
