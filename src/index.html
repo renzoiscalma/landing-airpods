@@ -134,7 +134,7 @@
             </div>
 
             <img
-              class="relative -left-[34px] z-10"
+              class="relative -left-[34px] z-10 h-[322px] w-[227px] md:h-[410px] md:w-[289px] lg:h-[522px] lg:w-[368px]"
               style="transform: matrix(0.9, 0, 0, 0.9, 0, 0)"
               src="https://www.apple.com/v/airpods-pro/g/images/overview/audio_airpod_guts_top__d2is2iiz9l6q_large.jpg"
               alt="img-guts-2"
@@ -158,7 +158,7 @@
               </p>
             </div>
             <img
-              class="relative -left-[34px] z-10"
+              class="relative -left-[34px] z-10 h-[322px] w-[227px] md:h-[410px] md:w-[289px] lg:h-[522px] lg:w-[368px]"
               style="transform: matrix(0.9, 0, 0, 0.9, 0, 0)"
               src="https://www.apple.com/v/airpods-pro/g/images/overview/audio_airpod_guts_bottom__bfet1uy1eg0y_large.jpg"
               alt="img-guts-2"
@@ -171,14 +171,14 @@
             id="img-pod"
           >
             <img
-              class="relative -left-[34px] z-10"
+              class="relative -left-[34px] z-10 h-[322px] w-[227px] mask-img-[url(../src/assets/airpods-mask.png)] md:h-[410px] md:w-[289px] lg:h-[522px] lg:w-[368px]"
               style="transform: matrix(0.9, 0, 0, 0.9, 0, 0)"
               src="https://www.apple.com/v/airpods-pro/g/images/overview/audio_airpod__dni8q27q7tqq_large.jpg"
               alt="img-pod"
             />
             <video
               id="airpods-particles"
-              class="pointer-events-none absolute z-0 scale-125 transition-transform duration-500 ease-out"
+              class="pointer-events-none absolute z-0 h-[734px] w-[734px] scale-125 object-cover transition-transform duration-500 ease-out md:h-[810px] md:w-[1068px] lg:h-[1050px] lg:w-[1440px]"
               muted
               loop
               playsinline
@@ -192,9 +192,9 @@
     </div>
     <div class="bg-black" id="section-3">
       <div class="relative z-20 -mt-[20vh] mb-20 text-slate-50" id="sticky-section-3">
-        <div class="mx-auto mb-20 max-w-[980px]">
+        <div class="mx-auto mb-20 max-w-[980px] px-9 md:px-0">
           <h2 class="md:text-[24px] lg:text-[32px]">Noise cancellation</h2>
-          <h1 class="mb-10 sm:text-[52px] md:text-[80px] lg:text-[120px]">
+          <h1 class="mb-10 text-[52px] md:text-[80px] lg:text-[120px]">
             A marvel of modern silence.
           </h1>
           <h2 class="leading-tight md:text-[24px] lg:text-[32px]">
@@ -204,9 +204,11 @@
           </h2>
         </div>
         <div
-          class="grid grid-cols-2 grid-rows-2 gap-[1px] border-b border-t border-zinc-700 bg-zinc-700"
+          class="grid grid-cols-1 grid-rows-1 gap-[1px] border-b border-t border-zinc-700 bg-zinc-700 md:grid-cols-2 md:grid-rows-2"
         >
-          <div class="relative col-span-1 flex items-center justify-center bg-black p-20">
+          <div
+            class="relative col-span-1 flex min-h-[400px] items-center justify-center bg-black p-9 md:min-h-full md:p-10 lg:p-20"
+          >
             <p
               class="relative z-10 mx-auto w-full text-center font-semibold sm:text-[17px] lg:text-[22px]"
             >
@@ -223,22 +225,24 @@
               alt=""
             />
           </div>
-          <div class="relative col-start-2 row-span-2 overflow-hidden bg-black">
-            <div class="flex flex-col p-24">
+          <div class="relative row-span-1 overflow-hidden bg-black md:col-start-2 md:row-span-2">
+            <div class="flex flex-col p-9 md:p-10 lg:p-12">
               <p class="w-1/2 font-semibold text-zinc-400 sm:text-[17px] lg:text-[22px]">
                 <span class="text-slate-50">Noise-cancelling microphones</span> and a rear vent are
                 optimally placed to quickly detect sound coming in, working together to
                 <span class="text-code-green">counter</span> noise before it reaches your ear.
               </p>
               <img
-                class="relative left-10 float-right -mb-[12em] mt-[50px] h-[791px] w-full overflow-visible object-contain"
+                class="relative left-10 float-right -mb-[12em] mt-[50px] h-[500px] w-full overflow-visible object-contain lg:h-[791px]"
                 src="https://www.apple.com/v/airpods-pro/g/images/overview/noise_cancel_airpod__bewzeymccxxu_large.jpg"
                 alt=""
                 srcset=""
               />
             </div>
           </div>
-          <div class="col-span-1 flex items-center justify-center bg-black p-20">
+          <div
+            class="col-span-1 flex min-h-[400px] items-center justify-center bg-black p-9 md:min-h-fit md:p-10 lg:p-20"
+          >
             <div>
               <p class="font-semibold text-zinc-400 sm:text-[22px] lg:text-[28px]">
                 A new driver and improved acoustic algorithms help
@@ -249,7 +253,7 @@
             </div>
           </div>
         </div>
-        <div class="p-20">
+        <div class="p-9 md:p-10 lg:p-20">
           <p class="w-1/2 font-semibold text-zinc-400 sm:text-[17px] lg:text-[22px]">
             Now with an extra-small size,
             <span class="text-slate-50">four pairs of silicone tips</span> are included to fit a
@@ -311,15 +315,21 @@
             </div>
           </div>
         </div>
-        <div class="grid grid-cols-2 gap-[1px] border-b border-t border-zinc-700 bg-zinc-700">
-          <div class="relative flex min-h-[640px] items-center justify-center bg-black p-20">
+        <div
+          class="grid grid-cols-1 gap-[1px] border-b border-t border-zinc-700 bg-zinc-700 md:grid-cols-2"
+        >
+          <div
+            class="relative flex min-h-[400px] items-center justify-center bg-black p-9 md:min-h-[640px] md:p-10 lg:p-20"
+          >
             <p class="font-semibold text-zinc-400 sm:text-[22px] lg:text-[28px]">
               <span class="text-slate-50">Adaptive Transparency</span> harnesses the power of H2 to
               minimize the intensity of loud noises like sirens or power tools — so you can
               comfortably hear the world around you.
             </p>
           </div>
-          <div class="relative flex min-h-[640px] items-center justify-center bg-black p-20">
+          <div
+            class="relative flex min-h-[400px] items-center justify-center bg-black p-9 md:min-h-[640px] md:p-10 lg:p-20"
+          >
             <p
               class="absolute z-10 text-center font-semibold text-slate-50 sm:text-[17px] lg:text-[22px]"
             >
@@ -332,44 +342,48 @@
           </div>
         </div>
         <div class="border-b border-zinc-700 bg-zinc-700">
-          <div class="relative bg-black p-20 pt-0">
-            <div class="relative flex flex-col items-end justify-center md:flex-row">
-              <div class="relative z-0 h-[320px] w-[360px] shrink md:hidden">
-                <img
-                  class="absolute h-[320px] w-[360px] max-w-none"
-                  src="https://www.apple.com/v/airpods-pro/g/images/overview/touch_control_airpod__e9hauo6fitim_large.jpg"
-                  alt="The scooped area on the stem that activates Touch control."
-                />
+          <div class="relative bg-black p-9 pt-0 md:p-10 md:pt-0 lg:p-20 lg:pt-0">
+            <div class="relative z-0 mx-auto h-[320px] w-[360px] md:invisible md:hidden">
+              <img
+                class="absolute h-[320px] w-[360px] max-w-none"
+                src="https://www.apple.com/v/airpods-pro/g/images/overview/touch_control_airpod__e9hauo6fitim_large.jpg"
+                alt="The scooped area on the stem that activates Touch control."
+              />
+              <div
+                class="-skew-y[11.5deg] absolute left-[109px] top-[45px] h-[210px] w-[80px] skew-x-[21.5deg]"
+                id="touch-control-container"
+              >
                 <div
-                  class="-skew-y[11.5deg] absolute left-[180px] top-[80px] h-[280px] w-[110px] skew-x-[23.5deg]"
-                  id="touch-control-container"
-                >
-                  <div
-                    class="h-[110px] w-[110px] rounded-full bg-code-green opacity-0 transition ease-out"
-                    id="touch-control-circle"
-                  ></div>
-                </div>
+                  class="h-[80px] w-[80px] rounded-full bg-code-green opacity-0 transition ease-out"
+                  id="touch-control-circle-small"
+                ></div>
               </div>
-              <div class="z-10 -mr-[50px] mb-10 text-[5vw]">A higher level</div>
-              <div class="relative z-0 hidden h-[320px] w-[360px] shrink md:block">
-                <img
-                  class="absolute h-[320px] w-[360px] max-w-none"
-                  src="https://www.apple.com/v/airpods-pro/g/images/overview/touch_control_airpod__e9hauo6fitim_large.jpg"
-                  alt="The scooped area on the stem that activates Touch control."
-                />
-                <div
-                  class="-skew-y[11.5deg] absolute left-[180px] top-[80px] h-[280px] w-[110px] skew-x-[23.5deg]"
-                  id="touch-control-container"
-                >
-                  <div
-                    class="h-[110px] w-[110px] rounded-full bg-code-green opacity-0 transition ease-out"
-                    id="touch-control-circle"
-                  ></div>
-                </div>
-              </div>
-              <div class="z-10 mb-10 text-[5vw]">of control</div>
             </div>
-            <div class="mt-10 max-w-[35%]">
+            <div
+              class="relative flex flex-row items-end justify-center gap-x-1 pt-12 md:gap-x-0 md:pt-0"
+            >
+              <div class="z-10 mb-10 text-[4.5vw] md:-mr-[50px]">A higher level</div>
+              <div
+                class="relative z-0 hidden shrink md:visible md:block md:h-[320px] md:w-[360px] lg:h-[450px] lg:w-[558px]"
+              >
+                <img
+                  class="absolute max-w-none md:h-[320px] md:w-[360px] lg:h-[450px] lg:w-[558px]"
+                  src="https://www.apple.com/v/airpods-pro/g/images/overview/touch_control_airpod__e9hauo6fitim_large.jpg"
+                  alt="The scooped area on the stem that activates Touch control."
+                />
+                <div
+                  class="-skew-y[11.5deg] absolute left-[118px] top-[52px] h-[209px] w-[80px] skew-x-[23.5deg] lg:left-[180px] lg:top-[80px] lg:h-[280px] lg:w-[110px]"
+                  id="touch-control-container"
+                >
+                  <div
+                    class="h-[80px] w-[80px] rounded-full bg-code-green opacity-0 transition ease-out lg:h-[110px] lg:w-[110px]"
+                    id="touch-control-circle-large"
+                  ></div>
+                </div>
+              </div>
+              <div class="z-10 mb-10 text-[4.5vw] md:ml-[-116px]">of control</div>
+            </div>
+            <div class="mt-10 md:max-w-[35%]">
               <p class="font-semibold text-zinc-400 sm:text-[17px] lg:text-[22px]">
                 <span class="text-slate-50">Touch control</span> lets you easily manage playback
                 functions from the stem. <span class="text-code-green">Swipe up or down</span> to
@@ -383,9 +397,9 @@
     </div>
     <div class="bg-black" id="section-4">
       <div class="text-slate-50">
-        <div class="mx-auto mb-24 max-w-[980px]">
+        <div class="mx-auto mb-24 max-w-[980px] px-9 md:px-0">
           <h2 class="md:text-[24px] lg:text-[32px]">Case and battery life</h2>
-          <h1 class="mb-10 sm:text-[52px] md:text-[80px] lg:text-[120px]">
+          <h1 class="mb-10 text-[52px] md:text-[80px] lg:text-[120px]">
             A case of unmistakable <span class="text-code-green">power.</span>
           </h1>
           <h2 class="md:text-[24px] lg:text-[32px]">
@@ -395,13 +409,15 @@
             find a more capable case.
           </h2>
         </div>
-        <div class="grid grid-cols-2 gap-[1px] border-b border-t border-zinc-700 bg-zinc-700">
+        <div
+          class="grid grid-cols-1 gap-[1px] border-b border-t border-zinc-700 bg-zinc-700 md:grid-cols-2"
+        >
           <div
-            class="relative flex min-h-[640px] flex-col items-center justify-center gap-y-14 bg-black p-20"
+            class="relative flex flex-col items-center justify-center gap-y-14 bg-black p-9 md:gap-y-40 md:p-10 lg:p-20"
           >
             <p class="text-center font-semibold text-slate-50 sm:text-[17px] lg:text-[22px]">
               Up to <br />
-              <span class="leading-none sm:text-[52px] md:text-[80px]"
+              <span class="text-[52px] leading-none md:text-[80px]"
                 ><span class="text-code-green sm:text-[72px] md:text-[80px] lg:text-[120px]"
                   >6</span
                 >
@@ -413,7 +429,7 @@
             </p>
             <p class="text-center font-semibold text-slate-50 sm:text-[17px] lg:text-[22px]">
               Up to <br />
-              <span class="leading-none sm:text-[52px] md:text-[80px]"
+              <span class="text-[52px] leading-none md:text-[80px]"
                 ><span class="text-code-green sm:text-[72px] md:text-[80px] lg:text-[120px]"
                   >30</span
                 >
@@ -426,16 +442,16 @@
             </p>
           </div>
           <div
-            class="relative flex min-h-[640px] flex-col items-center justify-center gap-y-10 overflow-hidden bg-black p-20"
+            class="relative flex flex-col items-center justify-center overflow-hidden bg-black p-9 md:p-10 lg:gap-y-10 lg:p-20"
           >
             <p class="font-semibold text-zinc-400 sm:text-[22px] lg:text-[28px]">
               Recharge the <span class="text-slate-50">MagSafe Charging Case</span> with an
               <span class="text-code-green">Apple Watch charger or MagSafe charger.</span> You can
               also use the Lightning connector or a Qi‑certified charger.
             </p>
-            <div class="h-[496px] w-[602px]">
+            <div class="h-[329px] w-[327px] lg:h-[496px] lg:w-[602px]">
               <img
-                class="absolute bottom-0"
+                class="relative -bottom-[68px] h-[329px] object-contain md:-bottom-[81px] lg:-left-[50px] lg:h-[496px] lg:w-[602px]"
                 src="https://www.apple.com/v/airpods-pro/g/images/overview/battery_magsafe__b8uyauldcub6_large.jpg"
                 alt="MagSafe Charging Case charging on an Apple Watch charger."
               />
@@ -443,7 +459,9 @@
           </div>
         </div>
         <div class="relative h-[300vh]" id="case-video">
-          <div class="sticky top-0 flex h-[100vh] flex-col items-center justify-center md:p-20">
+          <div
+            class="sticky top-0 flex h-[100vh] flex-col items-center justify-center p-9 md:p-10 md:lg:p-20"
+          >
             <div class="relative flex items-center justify-center">
               <video
                 playsinline
@@ -495,9 +513,12 @@
     </div>
     <div class="bg-black" id="section-5">
       <div class="text-slate-50">
-        <div class="mx-auto mb-24 max-w-[980px] pt-20" id="magical-experience-container">
+        <div
+          class="mx-auto mb-24 max-w-[980px] px-9 pt-20 md:px-0"
+          id="magical-experience-container"
+        >
           <h2 class="md:text-[24px] lg:text-[32px]">Magical experience</h2>
-          <h1 class="mb-10 sm:text-[52px] md:text-[80px] lg:text-[120px]">
+          <h1 class="mb-10 text-[52px] md:text-[80px] lg:text-[120px]">
             Simplicity on a grand scale.
           </h1>
           <h2 class="md:text-[24px] lg:text-[32px]">
@@ -507,9 +528,11 @@
           </h2>
         </div>
         <div class="relative h-[170vh] opacity-0" id="phone-video-container">
-          <div class="sticky top-0 flex h-[100vh] flex-col items-center justify-center p-20">
+          <div
+            class="sticky top-0 flex h-[100vh] flex-col items-center justify-center p-9 md:p-10 lg:p-20"
+          >
             <div
-              class="flex h-[352px] w-auto items-center justify-center md:h-[436px] lg:h-[666px]"
+              class="flex h-[352px] w-auto flex-col items-center justify-center md:h-[436px] lg:h-[666px]"
             >
               <div
                 class="flex h-[352px] w-auto items-center justify-center md:h-[436px] lg:h-[666px]"
@@ -519,13 +542,16 @@
                   src="https://www.apple.com/v/airpods-pro/g/images/overview/magical_iphone_hardware__ff15ryl53xay_large.jpg"
                   alt=""
                 />
-                <div class="after:z-15 absolute right-[calc(50%+65px)] top-[calc(50%+118px)] z-20">
+                <div
+                  class="after:z-15 absolute right-[50%] top-[calc(50%+55px)] z-20 md:right-[calc(50%+65px)] md:top-[calc(50%+118px)]"
+                >
                   <img
+                    class="h-[128px] w-[150px] md:h-[162px] md:w-[191px] lg:h-[229px] lg:w-[269px]"
                     src="https://www.apple.com/v/airpods-pro/g/images/overview/magical_case__epo6duhktocy_large.png"
                     alt=""
                   />
                   <span
-                    class="absolute left-[132px] top-[126px] h-[5px] w-[5px] rounded-full"
+                    class="absolute left-[72px] top-[70px] h-[5px] w-[5px] rounded-full md:left-[94px] md:top-[89px] lg:left-[132px] lg:top-[126px]"
                     id="case-blinker"
                   ></span>
                 </div>
@@ -546,7 +572,7 @@
               </div>
               <div class="flex flex-col items-center justify-center">
                 <p
-                  class="absolute top-[calc(50%+60px)] max-w-[390px] font-semibold text-zinc-400 sm:text-[17px] md:left-[calc(50%+190px)] lg:text-[22px]"
+                  class="absolute top-[calc(50%+370px)] max-w-[225px] font-semibold text-zinc-400 sm:text-[17px] md:left-[calc(50%+140px)] md:top-[calc(50%+60px)] md:max-w-[300px] lg:left-[calc(50%+190px)] lg:max-w-[390px] lg:text-[22px]"
                   id="phone-text-1"
                 >
                   <span class="text-slate-50">Easy, magical setup.</span> <br />
@@ -566,7 +592,7 @@
                 </p>
 
                 <p
-                  class="pointer-events-none absolute top-[calc(50%+60px)] max-w-[390px] font-semibold text-zinc-400 opacity-0 sm:text-[17px] md:left-[calc(50%+190px)] lg:text-[22px]"
+                  class="absolute top-[calc(50%+370px)] max-w-[225px] font-semibold text-zinc-400 sm:text-[17px] md:absolute md:left-[calc(50%+140px)] md:top-[calc(50%+60px)] md:max-w-[300px] lg:left-[calc(50%+190px)] lg:max-w-[390px] lg:text-[22px]"
                   id="phone-text-2"
                 >
                   <span class="text-slate-50">Audio Sharing Easily</span> <br />
@@ -578,8 +604,8 @@
             </div>
           </div>
         </div>
-        <div class="flex h-[100vh] items-center justify-center p-20 pt-0">
-          <div class="max-max-w-[980px] grid grid-cols-2 gap-x-[130px] gap-y-[80px]">
+        <div class="flex h-[100vh] items-center justify-center p-9 pt-0 md:p-10 lg:p-20">
+          <div class="max-max-w-[980px] grid grid-cols-1 gap-x-[130px] gap-y-[80px] md:grid-cols-2">
             <div class="font-semibold text-zinc-400 sm:text-[17px] lg:text-[22px]">
               <img
                 class="mb-7"
