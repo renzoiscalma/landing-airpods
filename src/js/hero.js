@@ -112,7 +112,8 @@ export default class Hero {
   modifyAirpodsAnimation(scrollFraction) {
     let percent = getPercentage(Math.min(0.8, scrollFraction), 0, 0.5);
     let heroMaxFrame = this.heroMaxFrame[getCurrentViewportSize()];
-    this.airpodsCanvas.style.opacity = 1 - percent;
+    console.log(percent);
+    this.airpodsCanvas.style.opacity = percent > 0.99 ? 0 : 1;
     this.currentFrame = Math.min(heroMaxFrame, Math.floor(percent * heroMaxFrame));
     window.requestAnimationFrame(() => this.draw(this.currentFrame + 1, getCurrentViewportSize()));
   }
