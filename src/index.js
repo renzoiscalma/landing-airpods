@@ -86,12 +86,30 @@ function modifySections(scrollFraction, currSection) {
   if (currSection == 3) {
     const eartipContainer = document.getElementById("ear-tips-container");
     let containerOffset = offset(eartipContainer);
-    if (
-      window.scrollY + window.innerHeight >
-        containerOffset.bottom - eartipContainer.offsetHeight / 2 &&
-      window.scrollY + window.innerHeight < containerOffset.bottom
-    ) {
-      modifyEarTips(scrollFraction);
+    let scrollYBreakPoint =
+      window.innerWidth <= 690
+        ? window.scrollY + window.innerHeight / 2
+        : window.scrollY + window.innerHeight;
+    let containerBreakPoint =
+      window.innerWidth <= 690
+        ? containerOffset.bottom - eartipContainer.offsetHeight / 2
+        : containerOffset.bottom - eartipContainer.offsetHeight / 3;
+
+    if (scrollYBreakPoint < containerBreakPoint) {
+      modifyEarTips(0.001);
+    } else if (scrollYBreakPoint > containerBreakPoint) {
+      let localScrollFraction = getPercentage(
+        scrollYBreakPoint,
+        containerBreakPoint,
+        containerOffset.bottom,
+      );
+      console.log(localScrollFraction);
+      modifyEarTips(localScrollFraction);
+      if (window.innerWidth <= 690)
+        eartipContainer.style.transform = computeTransformXMatrix(localScrollFraction, 0, 0, false);
+    }
+    if (scrollYBreakPoint > containerOffset.bottom) {
+      modifyEarTips(1);
     }
   }
 
@@ -114,7 +132,6 @@ function modifySections(scrollFraction, currSection) {
 }
 
 function modifyGuts(scrollFraction) {
-  let MAX_SCROLL_TEXT_APPEARANCE = 0.22;
   let guts1 = document.getElementById("img-guts-1");
   let guts2 = document.getElementById("img-guts-2");
   let imgPod = document.getElementById("img-pod");
@@ -123,7 +140,6 @@ function modifyGuts(scrollFraction) {
   let text2 = document.getElementById("guts-1-2");
   let text3 = document.getElementById("guts-2-1");
 
-  const gutsTextBottom = 200;
   const GUTS_TEXT_BASE_BOTTOM = 200;
 
   const minScrollFraction = [0, 0.09, 0.25];
@@ -162,7 +178,7 @@ function modifyGuts(scrollFraction) {
     let percent = getPercentage(scrollFraction - 0.25, 0, 0.25);
     text3.style.transform =
       window.innerWidth < 768
-        ? computeTransformYMatrix(guts1PercentScrolled, GUTS_TEXT_BASE_BOTTOM, 0.01)
+        ? computeTransformYMatrix(percent, GUTS_TEXT_BASE_BOTTOM, 0.01)
         : computeTransformYMatrix(percent, GUTS_TEXT_BASE_BOTTOM, -400);
   } else if (scrollFraction > 0.5) {
     guts1.style.opacity = 0;
@@ -195,29 +211,30 @@ function modifyDancerText(scrollFraction) {
 }
 
 function modifyEarTips(scrollFraction) {
-  const eartipContainer = document.getElementById("ear-tips-container");
   const tipsL = document.getElementById("tips-l");
   const tipsM = document.getElementById("tips-m");
   const tipsS = document.getElementById("tips-s");
   const tipsXS = document.getElementById("tips-xs");
+  const MAX_DISPLACEMENT = -45;
+  const BASE_TRANSFORM = 25;
 
   const tipsRef = [tipsL, tipsM, tipsS, tipsXS];
   const minScrollFraction = [0, 0.15, 0.4, 0.65];
   const maxScrollFraction = [0.25, 0.5, 0.75, 0.9];
 
-  let containerOffset = offset(eartipContainer);
-  let localScrollFraction = getPercentage(
-    window.scrollY + window.innerHeight,
-    containerOffset.bottom - eartipContainer.offsetHeight / 2,
-    containerOffset.bottom,
-  );
-
   for (let i = 0; i < tipsRef.length; i++) {
-    // console.log(localScrollFraction, minScrollFraction[i], maxScrollFraction[i]);
-    if (localScrollFraction > minScrollFraction[i] && localScrollFraction < maxScrollFraction[i]) {
-      tipsRef[i].style.transform = computeTransformXMatrix(localScrollFraction, 25, -50, false);
+    if (scrollFraction >= 1) {
+      tipsRef[i].style.opacity = 1;
+    } else if (scrollFraction <= 0.02) {
+      tipsRef[i].style.opacity = 0;
+    } else if (scrollFraction > minScrollFraction[i] && scrollFraction < maxScrollFraction[i]) {
+      tipsRef[i].style.transform = computeTransformXMatrix(
+        scrollFraction,
+        BASE_TRANSFORM,
+        MAX_DISPLACEMENT,
+      );
       tipsRef[i].style.opacity = computeOpacity(
-        localScrollFraction,
+        scrollFraction,
         minScrollFraction[i],
         maxScrollFraction[i],
       );
