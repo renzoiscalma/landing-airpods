@@ -103,10 +103,14 @@ function modifySections(scrollFraction, currSection) {
         containerBreakPoint,
         containerOffset.bottom,
       );
-      console.log(localScrollFraction);
       modifyEarTips(localScrollFraction);
       if (window.innerWidth <= 690)
-        eartipContainer.style.transform = computeTransformXMatrix(localScrollFraction, 0, 0, false);
+        eartipContainer.style.transform = computeTransformXMatrix(
+          localScrollFraction,
+          0,
+          -40,
+          false,
+        );
     }
     if (scrollYBreakPoint > containerOffset.bottom) {
       modifyEarTips(1);
