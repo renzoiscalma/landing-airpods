@@ -126,7 +126,10 @@ export default class Hero {
     let viewPortSize = getCurrentViewportSize();
     this.updateCanvasSize();
     this.loadImageFrames(viewPortSize);
-    if (!this.images[viewPortSize][this.currentFrame].complete) {
+    if (
+      this.images[viewPortSize][this.currentFrame] &&
+      !this.images[viewPortSize][this.currentFrame].complete
+    ) {
       this.images[viewPortSize][this.currentFrame].onload = () => {
         window.requestAnimationFrame(() => this.draw(this.currentFrame, getCurrentViewportSize()));
       };
