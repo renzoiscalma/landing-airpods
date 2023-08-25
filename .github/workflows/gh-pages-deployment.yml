@@ -21,7 +21,7 @@ jobs:
         run: |
           git fetch
           git checkout gh-pages
-          git pull origin master --allow-unrelated-histories
+          git pull origin master --allow-unrelated-histories --ff-only
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
