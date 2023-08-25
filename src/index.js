@@ -230,8 +230,8 @@ function modifyCaseVideo(scrollFraction) {
   video.currentTime = Math.min(VIDEO_DURATION, scrollFraction * VIDEO_DURATION);
   let { currentTime } = video;
   // console.log(currentTime);
-  let textShowBreakpoints = [1.5, 2.8, 4.1, 5.3];
-  let textHideBreakpoints = [1.5, 3.8];
+  // let textShowBreakpoints = [1.5, 2.8, 4.1, 5.3];
+  // let textHideBreakpoints = [1.5, 3.8];
   let text1 = document.getElementById("case-feat-1");
   let text2 = document.getElementById("case-feat-2");
   let text3 = document.getElementById("case-feat-3");
