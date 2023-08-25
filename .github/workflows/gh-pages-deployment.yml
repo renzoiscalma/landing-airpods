@@ -8,22 +8,10 @@ jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
     steps:
-      - name: Setup github actions/checkout
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - name: Create Github Config
-        run: |
-          git remote rm origin
-          git remote add origin ***github.com/renzoiscalma/landing-airpods.git
-          git add --all
-          git config --global user.name 'renzoiscalma'
-          git config --global user.email 'renzoiscalma@users.noreply.github.com'
-      - name: Pull main code
-        run: |
-          git fetch origin
-          git checkout gh-pages
-          git pull origin master
+      - uses: actions/checkout@v3
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
@@ -31,8 +19,13 @@ jobs:
       - run: npm ci
       - run: npm run build
       - run: git status
+      - name: Create Github Config
+        run: |
+          git add --all
+          git config --global user.name 'renzoiscalma'
+          git config --global user.email 'renzoiscalma@users.noreply.github.com'
       - name: Create a commit
         run: git commit -am "Automated deployment commit"
       - name: Push the commit to gh-pages
-        run: git push origin gh-pages
+        run: git push origin -f gh-pages
       - run: echo "🍏 This job's status is ${{ job.status }}."
