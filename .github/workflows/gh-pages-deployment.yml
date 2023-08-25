@@ -12,21 +12,6 @@ jobs:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
       - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
-      - name: Check out repository code
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-          ref: gh-pages
-      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
-      - run: git branch
-      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
-      - name: Use Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: "18.x"
-      - run: npm ci
-      - run: npm run build --if-present
-      - run: git status
       - name: Create Github Config
         run: |
           git remote rm origin
@@ -34,6 +19,21 @@ jobs:
           git add --all
           git config --global user.name 'renzoiscalma'
           git config --global user.email 'renzoiscalma@users.noreply.github.com'
+      - name: Check out to gh-pages
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: gh-pages
+      - name: Pull main code
+        run: git pull origin master
+      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18.x"
+      - run: npm ci
+      - run: npm run build
+      - run: git status
       - name: Create a commit
         run: git commit -am "Automated deployment commit"
       - name: Push the commit to gh-pages
