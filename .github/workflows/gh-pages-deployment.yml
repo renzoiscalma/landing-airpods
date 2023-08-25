@@ -31,6 +31,7 @@ jobs:
       - name: Create a commit
         run: |
           git add --all
+          git status
           git commit -am "Automated deployment commit"
       - name: Push the commit to gh-pages
         run: git push origin -f gh-pages
