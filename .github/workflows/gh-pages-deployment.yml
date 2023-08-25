@@ -14,9 +14,10 @@ jobs:
       - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
       - name: Checkout to gh-pages
         run: |
+          git config pull.rebase false
           git fetch
           git checkout gh-pages
-          git pull origin master --ff-only
+          git pull origin master
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
