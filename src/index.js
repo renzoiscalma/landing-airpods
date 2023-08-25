@@ -15,14 +15,7 @@ const section2Element = document.getElementById("section-2");
 const section3Element = document.getElementById("section-3");
 const section4Element = document.getElementById("section-4");
 const section5Element = document.getElementById("section-5");
-const sections = [
-  heroElement,
-  section1Element,
-  section2Element,
-  section3Element,
-  section4Element,
-  section5Element,
-];
+const sections = [heroElement, section1Element, section2Element, section3Element, section4Element, section5Element];
 const hero = new Hero(getCurrentViewportSize());
 let lastScrollTop = 0;
 
@@ -55,9 +48,7 @@ function isScrollUp() {
 
 function getCurrentSection() {
   const scrollTop = html.scrollTop;
-  return sections.findIndex(
-    (section) => scrollTop + window.innerHeight <= Number(offset(section).bottom),
-  );
+  return sections.findIndex((section) => scrollTop + window.innerHeight <= Number(offset(section).bottom));
 }
 
 function modifySections(scrollFraction, currSection) {
@@ -87,9 +78,7 @@ function modifySections(scrollFraction, currSection) {
     const eartipContainer = document.getElementById("ear-tips-container");
     let containerOffset = offset(eartipContainer);
     let scrollYBreakPoint =
-      window.innerWidth <= 690
-        ? window.scrollY + window.innerHeight / 2
-        : window.scrollY + window.innerHeight;
+      window.innerWidth <= 690 ? window.scrollY + window.innerHeight / 2 : window.scrollY + window.innerHeight;
     let containerBreakPoint =
       window.innerWidth <= 690
         ? containerOffset.top - eartipContainer.offsetHeight / 2
@@ -98,24 +87,14 @@ function modifySections(scrollFraction, currSection) {
     if (scrollYBreakPoint < containerBreakPoint) {
       modifyEarTips(0.001);
     } else if (scrollYBreakPoint > containerBreakPoint) {
-      let localScrollFraction = getPercentage(
-        scrollYBreakPoint,
-        containerBreakPoint,
-        containerOffset.bottom,
-      );
+      let localScrollFraction = getPercentage(scrollYBreakPoint, containerBreakPoint, containerOffset.bottom);
       modifyEarTips(localScrollFraction);
       if (window.innerWidth <= 690) {
-        console.log(window.innerWidth - eartipContainer.offsetWidth);
-        eartipContainer.style.transform = computeTransformXMatrix(
-          localScrollFraction,
-          0,
-          window.innerWidth - eartipContainer.offsetWidth - 50,
-          true,
-        );
-      } else {
-        if (eartipContainer.style.transform) {
-          eartipContainer.style.transform = computeTransformXMatrix(0, 0, 0);
-        }
+        let transformVal = window.innerWidth - eartipContainer.offsetWidth - 50;
+        eartipContainer.style.transform = computeTransformXMatrix(localScrollFraction, 0, transformVal, true);
+      } else if (eartipContainer.style.transform) {
+        // if has been previously transformed
+        eartipContainer.style.transform = computeTransformXMatrix(0, 0, 0);
       }
     }
     if (scrollYBreakPoint > containerOffset.bottom) {
@@ -238,16 +217,8 @@ function modifyEarTips(scrollFraction) {
     } else if (scrollFraction <= 0.02) {
       tipsRef[i].style.opacity = 0;
     } else if (scrollFraction > minScrollFraction[i] && scrollFraction < maxScrollFraction[i]) {
-      tipsRef[i].style.transform = computeTransformXMatrix(
-        scrollFraction,
-        BASE_TRANSFORM,
-        MAX_DISPLACEMENT,
-      );
-      tipsRef[i].style.opacity = computeOpacity(
-        scrollFraction,
-        minScrollFraction[i],
-        maxScrollFraction[i],
-      );
+      tipsRef[i].style.transform = computeTransformXMatrix(scrollFraction, BASE_TRANSFORM, MAX_DISPLACEMENT);
+      tipsRef[i].style.opacity = computeOpacity(scrollFraction, minScrollFraction[i], maxScrollFraction[i]);
     }
   }
 }
@@ -290,10 +261,7 @@ function modifyPhoneVideo(scrollFraction) {
   let phoneVideoContainer = document.getElementById("phone-video-container");
   let caseBlinker = document.getElementById("case-blinker");
   let phoneVideoContainerOffset = offset(phoneVideoContainer);
-  if (
-    window.scrollY > phoneVideoContainerOffset.top - 300 &&
-    window.scrollY < phoneVideoContainerOffset.top
-  ) {
+  if (window.scrollY > phoneVideoContainerOffset.top - 300 && window.scrollY < phoneVideoContainerOffset.top) {
     setupPhoneVideoStartup();
   } else if (window.scrollY > phoneVideoContainerOffset.top) {
     phoneVideoContainer.style.opacity = 1;

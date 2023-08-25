@@ -82,7 +82,7 @@
         </div>
         <div class="relative z-10 mx-auto flex max-w-[880px] items-center justify-center">
           <p
-            class="text-[27px] font-bold tracking-tight text-slate-50 md:text-[44px] lg:text-[56px]"
+            class="px-9 text-[27px] font-bold tracking-tight text-slate-50 md:text-[44px] lg:px-0 lg:text-[56px]"
           >
             <span id="sentence-1" class="opacity-100">
               Up to 2x more Active Noise Cancellation than the previous generation.
@@ -173,14 +173,14 @@
             id="img-pod"
           >
             <img
-              class="mask-img-[url(../ src/assets/airpods-mask.png)] relative left-[-25px] z-10 h-[322px] w-[227px] md:h-[410px] md:w-[289px] lg:-left-[34px] lg:h-[522px] lg:w-[368px]"
+              class="relative left-[-25px] z-10 h-[322px] w-[227px] mask-img-[url(../src/assets/airpods-mask.png)] md:h-[410px] md:w-[289px] lg:-left-[34px] lg:h-[522px] lg:w-[368px]"
               style="transform: matrix(0.9, 0, 0, 0.9, 0, 0)"
               src="https://www.apple.com/v/airpods-pro/g/images/overview/audio_airpod__dni8q27q7tqq_large.jpg"
               alt="img-pod"
             />
             <video
               id="airpods-particles"
-              class="pointer-events-none absolute z-0 h-[734px] w-[734px] scale-125 object-cover transition-transform duration-500 ease-out md:h-[810px] md:w-[1068px] lg:h-[1050px] lg:w-[1440px]"
+              class="pointer-events-none absolute z-0 h-[563px] w-[734px] scale-125 object-cover transition-transform duration-500 ease-out md:h-[810px] md:w-[1068px] lg:h-[1050px] lg:w-[1440px]"
               muted
               loop
               playsinline
@@ -479,8 +479,10 @@
                 muted
                 id="case-battery-video"
                 aria-label="AirPods Pro floating out of an open MagSafe Charging Case."
-                src="./assets/airpods.webm"
-              ></video>
+              >
+                <source src="./assets/airpods.webm" type="" />
+                <source src="./assets/airpods.mp4" type="" />
+              </video>
               <p
                 class="absolute top-[110%] max-w-[269px] text-center font-semibold text-zinc-400 sm:text-[17px] md:max-w-[335px] lg:max-w-[390px] lg:text-[22px]"
                 id="case-feat-1"
