@@ -27,7 +27,8 @@ jobs:
         run: |
           git checkout gh-pages
           git fetch origin 
-          git pull origin master --ff-only
+          git pull origin master
+          git merge origin master
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
