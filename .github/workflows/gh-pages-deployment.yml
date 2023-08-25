@@ -23,12 +23,8 @@ jobs:
       - run: git status
       - name: Create Github Config
         run: |
-          git remote rm origin
-          git remote add origin ***github.com/renzoiscalma/landing-airpods.git
-          git add --all
           git config --global user.name 'renzoiscalma'
           git config --global user.email 'renzoiscalma@users.noreply.github.com'
-          git branch
           git checkout origin gh-pages
       - name: Create a commit
         run: git commit -am "Automated deployment commit"
