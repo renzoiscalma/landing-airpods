@@ -93,18 +93,14 @@ export default class Hero {
     let opacity = Math.max(0, 1 - percent);
     let size = 1 + 0.5 * scrollFraction;
     if (opacity > 0.0001)
-      document.getElementById(
-        "hero-maintext",
-      ).style.transform = `matrix(${size}, 0, 0, ${size}, 0, 0)`;
+      document.getElementById("hero-maintext").style.transform = `matrix(${size}, 0, 0, ${size}, 0, 0)`;
     document.getElementById("hero-maintext").style.opacity = opacity;
     document.getElementById("all-new").style.opacity = opacity;
     document.getElementById("watch-links").style.opacity = opacity < 0.5 ? opacity : 1;
     document.getElementById("hero-payoff").style.opacity =
       scrollFraction > 0.6 ? 0 : computeOpacity(scrollFraction, 0.4, 0.6);
     if (scrollFraction > 0.4 && scrollFraction < 0.6) {
-      document.getElementById("hero-payoff").style.transform = `matrix(${size - 0.2}, 0, 0, ${
-        size - 0.2
-      }, 0, 0)`;
+      document.getElementById("hero-payoff").style.transform = `matrix(${size - 0.2}, 0, 0, ${size - 0.2}, 0, 0)`;
     }
   }
 
@@ -112,7 +108,6 @@ export default class Hero {
   modifyAirpodsAnimation(scrollFraction) {
     let percent = getPercentage(Math.min(0.8, scrollFraction), 0, 0.5);
     let heroMaxFrame = this.heroMaxFrame[getCurrentViewportSize()];
-    console.log(percent);
     this.airpodsCanvas.style.opacity = percent > 0.99 ? 0 : 1;
     this.currentFrame = Math.min(heroMaxFrame, Math.floor(percent * heroMaxFrame));
     window.requestAnimationFrame(() => this.draw(this.currentFrame + 1, getCurrentViewportSize()));
@@ -126,10 +121,7 @@ export default class Hero {
     let viewPortSize = getCurrentViewportSize();
     this.updateCanvasSize();
     this.loadImageFrames(viewPortSize);
-    if (
-      this.images[viewPortSize][this.currentFrame] &&
-      !this.images[viewPortSize][this.currentFrame].complete
-    ) {
+    if (this.images[viewPortSize][this.currentFrame] && !this.images[viewPortSize][this.currentFrame].complete) {
       this.images[viewPortSize][this.currentFrame].onload = () => {
         window.requestAnimationFrame(() => this.draw(this.currentFrame, getCurrentViewportSize()));
       };

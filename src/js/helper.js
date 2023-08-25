@@ -4,14 +4,6 @@ export function getCurrentViewportSize() {
   } else if (window.innerWidth >= 640) {
     return "m";
   } else return "s";
-
-  // if (window.innerWidth <= 640) {
-  //   return "s";
-  // } else if (window.innerWidth <= 1068) {
-  //   return "m";
-  // } else {
-  //   return "l";
-  // }
 }
 
 export function offset(el) {
@@ -30,11 +22,7 @@ export function getPercentage(val, min, max) {
 }
 
 export function computeOpacity(val, min, max) {
-  return val > min
-    ? val < max
-      ? getPercentage(val, min, max)
-      : 1 - getPercentage(val, min, max)
-    : 0;
+  return val > min ? (val < max ? getPercentage(val, min, max) : 1 - getPercentage(val, min, max)) : 0;
 }
 
 export function computeTransformYMatrix(scrollFraction, base, max, limit) {

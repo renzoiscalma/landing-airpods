@@ -178,7 +178,6 @@ function modifyGuts(scrollFraction) {
     let percent = getPercentage(scrollFraction - 0.5, 0, 0.25);
     let podOpacity = getPercentage(percent, 0.4, 0.6);
     imgPod.style.opacity = podParticles.style.opacity = 1 - podOpacity;
-    // console.log(percent, podOpacity);
   }
 }
 
@@ -229,7 +228,6 @@ function modifyCaseVideo(scrollFraction) {
   let VIDEO_DURATION = 5.367;
   video.currentTime = Math.min(VIDEO_DURATION, scrollFraction * VIDEO_DURATION);
   let { currentTime } = video;
-  // console.log(currentTime);
   // let textShowBreakpoints = [1.5, 2.8, 4.1, 5.3];
   // let textHideBreakpoints = [1.5, 3.8];
   let text1 = document.getElementById("case-feat-1");
