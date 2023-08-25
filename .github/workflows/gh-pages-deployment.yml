@@ -3,7 +3,7 @@ run-name: ${{ github.actor }} is testing out Deployment using Github Actions ðŸš
 on:
   push:
     branches:
-      - "dev"
+      - "master"
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
