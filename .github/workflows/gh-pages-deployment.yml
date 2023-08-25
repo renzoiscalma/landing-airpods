@@ -1,0 +1,38 @@
+name: GitHub Actions Demo
+run-name: ${{ github.actor }} is testing out Deployment using Github Actions 🚀
+on:
+  push:
+    branches:
+      - "master"
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+      - name: Create Github Config
+        run: |
+          git config --global user.name 'renzoiscalma'
+          git config --global user.email 'renzoiscalma@users.noreply.github.com'
+          git config pull.rebase false
+      - name: Checkout to gh-pages
+        run: |
+          git fetch
+          git checkout gh-pages
+          git pull origin master
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18.x"
+      - run: npm ci
+      - run: npm run build
+      - name: Create a commit
+        continue-on-error: true
+        run: |
+          git add --all
+          git commit -am "Automated deployment commit"
+      - name: Push the commit to gh-pages
+        run: git push origin gh-pages
+      - run: echo "🍏 This job's status is ${{ job.status }}."
