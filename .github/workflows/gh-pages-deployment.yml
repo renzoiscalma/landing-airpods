@@ -24,6 +24,7 @@ jobs:
           git add --all
           git config --global user.name 'renzoiscalma'
           git config --global user.email 'renzoiscalma@users.noreply.github.com'
+      - run: git checkout gh-pages
       - name: Create a commit
         run: git commit -am "Automated deployment commit"
       - name: Push the commit to gh-pages
