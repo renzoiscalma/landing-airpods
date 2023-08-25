@@ -16,17 +16,18 @@ jobs:
         run: |
           git fetch
           git checkout gh-pages
+          git pull origin master
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
           node-version: "18.x"
       - run: npm ci
       - run: npm run build
-      - run: git status
       - name: Create Github Config
         run: |
           git config --global user.name 'renzoiscalma'
           git config --global user.email 'renzoiscalma@users.noreply.github.com'
+          git status
       - name: Create a commit
         run: git commit -am "Automated deployment commit"
       - name: Push the commit to gh-pages
