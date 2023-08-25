@@ -20,7 +20,7 @@ jobs:
         run: |
           git fetch
           git checkout gh-pages
-          git pull origin master --allow-unrelated-histories --no-edit
+          git merge origin master
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
