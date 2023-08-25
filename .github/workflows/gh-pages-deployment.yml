@@ -19,7 +19,6 @@ jobs:
           git add --all
           git config --global user.name 'renzoiscalma'
           git config --global user.email 'renzoiscalma@users.noreply.github.com'
-          git config --global pull.ff only
       - name: Check out to gh-pages
         uses: actions/checkout@v3
         with:
@@ -28,8 +27,7 @@ jobs:
         run: |
           git checkout gh-pages
           git fetch origin 
-          git pull origin master
-          git merge origin master
+          git pull origin master --rebase
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
