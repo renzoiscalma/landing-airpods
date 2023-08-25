@@ -92,7 +92,7 @@ function modifySections(scrollFraction, currSection) {
         : window.scrollY + window.innerHeight;
     let containerBreakPoint =
       window.innerWidth <= 690
-        ? containerOffset.bottom - eartipContainer.offsetHeight / 2
+        ? containerOffset.top - eartipContainer.offsetHeight / 2
         : containerOffset.bottom - eartipContainer.offsetHeight / 3;
 
     if (scrollYBreakPoint < containerBreakPoint) {
@@ -104,13 +104,19 @@ function modifySections(scrollFraction, currSection) {
         containerOffset.bottom,
       );
       modifyEarTips(localScrollFraction);
-      if (window.innerWidth <= 690)
+      if (window.innerWidth <= 690) {
+        console.log(window.innerWidth - eartipContainer.offsetWidth);
         eartipContainer.style.transform = computeTransformXMatrix(
           localScrollFraction,
           0,
-          -40,
-          false,
+          window.innerWidth - eartipContainer.offsetWidth - 50,
+          true,
         );
+      } else {
+        if (eartipContainer.style.transform) {
+          eartipContainer.style.transform = computeTransformXMatrix(0, 0, 0);
+        }
+      }
     }
     if (scrollYBreakPoint > containerOffset.bottom) {
       modifyEarTips(1);
@@ -166,12 +172,12 @@ function modifyGuts(scrollFraction) {
 
     text1.style.transform =
       window.innerWidth < 768
-        ? computeTransformYMatrix(guts1PercentScrolled, GUTS_TEXT_BASE_BOTTOM, 0.01)
+        ? computeTransformYMatrix(guts1PercentScrolled, 0, 0.01)
         : computeTransformYMatrix(guts1PercentScrolled, GUTS_TEXT_BASE_BOTTOM, -400);
 
     text2.style.transform =
       window.innerWidth < 768
-        ? computeTransformYMatrix(guts1PercentScrolled, GUTS_TEXT_BASE_BOTTOM, 0.01)
+        ? computeTransformYMatrix(guts1PercentScrolled, 0, 0.01)
         : computeTransformYMatrix(guts2PercentScrolled, GUTS_TEXT_BASE_BOTTOM, -400);
   } else if (scrollFraction > 0.25 && scrollFraction < 0.5) {
     guts1.style.opacity = 0;
@@ -182,7 +188,7 @@ function modifyGuts(scrollFraction) {
     let percent = getPercentage(scrollFraction - 0.25, 0, 0.25);
     text3.style.transform =
       window.innerWidth < 768
-        ? computeTransformYMatrix(percent, GUTS_TEXT_BASE_BOTTOM, 0.01)
+        ? computeTransformYMatrix(percent, 0, 0.01)
         : computeTransformYMatrix(percent, GUTS_TEXT_BASE_BOTTOM, -400);
   } else if (scrollFraction > 0.5) {
     guts1.style.opacity = 0;
