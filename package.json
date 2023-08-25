@@ -6,6 +6,6 @@
   },
   "scripts": {
     "tailwind": "npx tailwindcss -i ./src/css/tailwind.css -o ./dist/tailwind.css --watch",
-    "tailwind-prod": "npx tailwindcss -i ./src/css/tailwind.css -o ./dist/tailwind.css --minify"
+    "build": "npx tailwindcss -i ./src/css/tailwind.css -o ./dist/tailwind.css --minify"
   }
 }
