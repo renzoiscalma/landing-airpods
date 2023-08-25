@@ -30,6 +30,7 @@ jobs:
       - run: npm run build
       - name: Create a commit
         run: |
+          git status
           git add --all
           git status
           git commit -am "Automated deployment commit"
