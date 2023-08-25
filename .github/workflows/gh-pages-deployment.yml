@@ -29,7 +29,9 @@ jobs:
       - run: npm ci
       - run: npm run build
       - name: Create a commit
-        run: git commit -am "Automated deployment commit"
+        run: |
+          git add -all
+          git commit -am "Automated deployment commit"
       - name: Push the commit to gh-pages
         run: git push origin -f gh-pages
       - run: echo "🍏 This job's status is ${{ job.status }}."
